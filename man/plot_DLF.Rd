@@ -11,7 +11,8 @@ plot_DLF(
   dlm_fit = NULL,
   plot_by,
   time_pts = NULL,
-  trans_fn = NULL
+  mod_trans = NULL,
+  link_trans = NULL
 )
 }
 \arguments{
@@ -19,7 +20,7 @@ plot_DLF(
 
 \item{mod_fit}{an object of class dlim (dlim)}
 
-\item{mod_name}{modifier name (character)}
+\item{mod_name}{modifier name that follows variable name nomenclature (character)}
 
 \item{dlm_fit}{a list containing a \code{crossbasis} object from the \pkg{dlnm} package as the first element and a DLM model object as the second element (list)}
 
@@ -27,7 +28,9 @@ plot_DLF(
 
 \item{time_pts}{a set of time points if plotting by time (numeric)}
 
-\item{trans_fn}{if modifiers are transformed, specify back transformation function (character)}
+\item{mod_trans}{if modifiers are transformed, specify back transformation function (character)}
+
+\item{link_trans}{if family for \code{glm} is not Gaussian, specify back transformation to undo link function (character)}
 }
 \value{
 This function returns ggplot

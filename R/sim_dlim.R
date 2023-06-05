@@ -9,10 +9,11 @@
 #' @param df_l degrees of freedom for lags
 #' @param penalize True to penalize model
 #' @param fit_dlm True to additionally fit dlm for comparison
-#' @param MaME modifier as main effect
+#' @param model_type "linear" for a DLIM with linear interaction, "quadratic" for a DLIM with quadratic interaction, "standard" for a DLIM with splines
+#' @param ... arguments to pass to model fitting function
 #' @return This function returns an object of class dlim
 
-sim_dlim <- function(data, df_m, df_l, penalize=T, fit_dlm=F, MaME=F, new_approach=NA, model_type=4, penalty_same=F, method="GCV.Cp"){
+sim_dlim <- function(data, df_m, df_l, penalize=T, fit_dlm=F, model_type="standard",...){
 
 
   model <- dlim(y = data$y,
@@ -22,27 +23,16 @@ sim_dlim <- function(data, df_m, df_l, penalize=T, fit_dlm=F, MaME=F, new_approa
                 df_m = df_m,
                 df_l = df_l,
                 penalize=penalize,
-                MaME=MaME,
-                new_approach=new_approach,
                 model_type=model_type,
-                penalty_same=penalty_same,
-                method=method)
+                ...)
 
   if(fit_dlm){
     #set up
     modifiers <- matrix(data$modifiers, ncol=1)
     if(!is.null(data$Z)){
-      if(MaME){
-        design1 <- data.frame(intercept=rep(1,length(data$modifiers)), data$modifiers,data$Z)
-      }else{
-        design1 <- data.frame(intercept=rep(1,length(data$modifiers)), data$Z)
-      }
+      design1 <- data.frame(intercept=rep(1,length(data$modifiers)), data$modifiers,data$Z)
     }else{
-      if(MaME){
-        design1 <- data.frame(intercept=rep(1,length(data$modifiers)), data$modifiers)
-      }else{
-        design1 <- data.frame(intercept=rep(1,length(data$modifiers)))
-      }
+      design1 <- data.frame(intercept=rep(1,length(data$modifiers)), data$modifiers)
     }
     y <- data$y
 

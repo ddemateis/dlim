@@ -4,7 +4,15 @@
 \alias{sim_dlim}
 \title{Fit DLIM for simulation}
 \usage{
-sim_dlim(data, df_m, df_l, penalize = T, fit_dlm = F, MaME = F)
+sim_dlim(
+  data,
+  df_m,
+  df_l,
+  penalize = T,
+  fit_dlm = F,
+  model_type = "standard",
+  ...
+)
 }
 \arguments{
 \item{data}{output from sim_data()}
@@ -17,7 +25,9 @@ sim_dlim(data, df_m, df_l, penalize = T, fit_dlm = F, MaME = F)
 
 \item{fit_dlm}{True to additionally fit dlm for comparison}
 
-\item{MaME}{modifier as main effect}
+\item{model_type}{"linear" for a DLIM with linear interaction, "quadratic" for a DLIM with quadratic interaction, "standard" for a DLIM with splines}
+
+\item{...}{arguments to pass to model fitting function}
 }
 \value{
 This function returns an object of class dlim

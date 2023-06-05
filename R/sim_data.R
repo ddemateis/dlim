@@ -22,7 +22,7 @@
 
 
 
-sim_data <- function(x, L=NULL, modifiers, noise=1, type=2, SNR, ncovariates=0, MaME=F, gamma=1){
+sim_data <- function(x, L=NULL, modifiers, noise=1, type=2, SNR, ncovariates=0, gamma=1){
 
   #create lagged structure
   if(is.vector(x)){
@@ -47,28 +47,17 @@ sim_data <- function(x, L=NULL, modifiers, noise=1, type=2, SNR, ncovariates=0, 
   }
 
   #Create gammas and covariates
-  if(MaME){##modifier as main effect
-    if(ncovariates!=0){
-      gammas <- c(gamma,matrix(rnorm(ncovariates),ncol=1))
-      Z <- matrix(rnorm(length(modifiers)*(ncovariates)), ncol = ncovariates)
-      mod_Z <- cbind(modifiers,Z)
-      y <- y_mean + mod_Z%*%gammas + rnorm(length(y_mean),0,noise)
-    }else{
-      Z <- NULL
-      gammas <- gamma
-      y <- y_mean + matrix(M,ncol=1)*gammas + rnorm(length(y_mean),0,noise)
-    }
-  }else{##modifier not as main effect
-    if(ncovariates!=0){
-      gammas <- matrix(rnorm(ncovariates),ncol=1)
-      Z <- matrix(rnorm(length(modifiers)*ncovariates), ncol = ncovariates)
-      y <- y_mean + Z%*%gammas + rnorm(length(y_mean),0,noise)
-    }else{
-      Z <- NULL
-      gammas <- NULL
-      y <- y_mean + rnorm(length(y_mean),0,noise)
-    }
+  if(ncovariates!=0){
+    gammas <- c(gamma,matrix(rnorm(ncovariates),ncol=1))
+    Z <- matrix(rnorm(length(modifiers)*(ncovariates)), ncol = ncovariates)
+    mod_Z <- cbind(modifiers,Z)
+    y <- y_mean + mod_Z%*%gammas + rnorm(length(y_mean),0,noise)
+  }else{
+    Z <- NULL
+    gammas <- gamma
+    y <- y_mean + matrix(M,ncol=1)*gammas + rnorm(length(y_mean),0,noise)
   }
+
 
   result <- list(x=X,
                  L=L,

@@ -9,10 +9,11 @@
 #' @param dlm_fit a list containing a \code{crossbasis} object from the \pkg{dlnm} package as the first element and a DLM model object as the second element (list)
 #' @param plot_by choose to create plots for particular modifier values, "modifier", or particular time points, "time", (character)
 #' @param time_pts a set of time points if plotting by time (numeric)
-#' @param trans_fn if modifiers are transformed, specify back transformation function (character)
+#' @param mod_trans if modifiers are transformed, specify back transformation function (character)
+#' @param link_trans if family for \code{glm} is not Gaussian, specify back transformation to undo link function (character)
 #' @return This function returns ggplot
 
-plot_DLF <- function(new_modifiers, mod_fit, mod_name, dlm_fit=NULL, plot_by, time_pts=NULL, trans_fn = NULL){
+plot_DLF <- function(new_modifiers, mod_fit, mod_name, dlm_fit=NULL, plot_by, time_pts=NULL, mod_trans = NULL, link_trans = NULL){
   library(ggplot2)
   library(reshape2)
   library(viridis)
@@ -24,21 +25,25 @@ plot_DLF <- function(new_modifiers, mod_fit, mod_name, dlm_fit=NULL, plot_by, ti
     #predict DLM
     cb_dlm <- dlm_fit[[1]]
     model_dlm <- dlm_fit[[2]]
-    dlm_crosspred <- crosspred(cb_dlm,model_dlm,at=rep(1,37),cen = F)
+    nlag <- attr(cb_dlm, "lag")[2]+1
+    dlm_crosspred <- crosspred(cb_dlm,model_dlm,at=rep(1,nlag),cen = F)
     beta_by_lag <- dlm_crosspred$matfit
-    dlm_lb <- dlm_crosspred$matlow
-    dlm_ub <- dlm_crosspred$mathigh
+    z <- qnorm(1 - (1 - 0.95)/2)
+    dlm_lb <- dlm_crosspred$matfit - z * dlm_crosspred$matse #for some reason $matlow is gone
+    dlm_ub <- dlm_crosspred$matfit + z * dlm_crosspred$matse #for some reason $mathigh is gone
   }
 
   #back transform if specified
-  if(!is.null(trans_fn)){
-    new_modifiers <- do.call(trans_fn,list(new_modifiers))
+  if(!is.null(mod_trans)){
+    new_modifiers <- do.call(mod_trans,list(new_modifiers))
   }
 
+  #use all time points if not specified
   if(is.null(time_pts)){
     time_pts <- 1:ncol(model_pred$est_dlim$betas)
   }
 
+  #set up dataframe with DLIM estimates
   est_dlf <- model_pred$est_dlim$betas[,time_pts] #modifiers x time_pts
   colnames(est_dlf) <- time_pts
   rownames(est_dlf) <- new_modifiers
@@ -62,16 +67,23 @@ plot_DLF <- function(new_modifiers, mod_fit, mod_name, dlm_fit=NULL, plot_by, ti
 
   df <- data.frame(dlf_df, LB=lb_df$Effect, UB=ub_df$Effect)
 
+
+  #Add the modifiers or weeks for plotting by
   if(plot_by=="modifier"){
     df$Modifiers <- signif(df$Modifiers,3)
   }else if(plot_by=="week"){
     df$Week <- paste("Week", df$Week)
   }
 
-
+  #get number of modifier values
   m <- length(new_modifiers)
 
+  #reference line
+  ref_line <- 0
+
+
   if(!is.null(dlm_fit)){ #DLM and DLIM
+
     model_name <- paste0("DLIM(", mod_fit$cb$df_m,",",mod_fit$cb$df_l,")")
     df_time_pts <- data.frame(Modifiers = c(df$Modifiers,df$Modifiers),
                            Week = c(df$Week, df$Week),
@@ -81,13 +93,23 @@ plot_DLF <- function(new_modifiers, mod_fit, mod_name, dlm_fit=NULL, plot_by, ti
                            Model = factor(c(rep(model_name, length(df$Modifiers)), rep("DLM", length(df$Modifiers))))
     )
 
+    if(is.null(link_trans)){
+      if(mod_fit$fit$family$family!="gaussian"){
+        warning("Family is not Gaussian. Use the link_trans argument to transform estimate.")
+      }
+    }else{
+      ref_line <- do.call(link_trans, list(0))
+      df_time_pts[,3:5] <- do.call(link_trans,list(df_time_pts[,3:5]))
+    }
+
     if(plot_by=="modifier"){
+
       colnames(df_time_pts)[which(colnames(df_time_pts)=="Modifiers")] <- mod_name
       ggplot(df_time_pts, aes(x=Week,y=Effect, color=Model, fill = Model)) +
-        geom_hline(yintercept = 0)+
+        facet_wrap(mod_name, ncol = 3, labeller = label_both) +
+        geom_hline(yintercept = ref_line)+
         geom_ribbon(aes(ymin=LB, ymax=UB), alpha=0.2, color=NA)+
         geom_line()+
-        facet_wrap(mod_name, ncol = 3, labeller = label_both) +
         xlab("Time") +
         ylab("Effect") +
         theme_classic() +
@@ -95,11 +117,12 @@ plot_DLF <- function(new_modifiers, mod_fit, mod_name, dlm_fit=NULL, plot_by, ti
         scale_color_viridis(discrete=T)
 
     }else if(plot_by=="time"){
+
       ggplot(df_time_pts, aes(x=Modifiers,y=Effect, color=Model, fill=Model)) +
-        geom_hline(yintercept = 0) +
+        facet_wrap(vars(Week), ncol = 3, labeller = label_both) +
+        geom_hline(yintercept = ref_line) +
         geom_ribbon(aes(ymin=LB, ymax=UB),alpha=0.2, color=F)+
         geom_line()+
-        facet_wrap(vars(Week), ncol = 3, labeller = label_both) +
         xlab(ifelse(is.null(mod_name), "Modifier", mod_name)) +
         ylab("Effect") +
         theme_classic() +
@@ -108,6 +131,7 @@ plot_DLF <- function(new_modifiers, mod_fit, mod_name, dlm_fit=NULL, plot_by, ti
 
     }
   }else{ #just DLIM
+
     df_time_pts <- data.frame(Modifiers = c(df$Modifiers),
                            Week = c(df$Week),
                            Effect = c(df$Effect),
@@ -115,10 +139,19 @@ plot_DLF <- function(new_modifiers, mod_fit, mod_name, dlm_fit=NULL, plot_by, ti
                            UB = c(df$UB)
     )
 
+    if(is.null(link_trans)){
+      if(mod_fit$fit$family$family!="gaussian"){
+        warning("Family is not Gaussian. Use the link_trans argument to transform estimate.")
+      }
+    }else{
+      ref_line <- do.call(link_trans, list(0))
+      df_time_pts[,3:5] <- do.call(link_trans,list(df_time_pts[,3:5]))
+    }
+
     if(plot_by=="modifier"){
       colnames(df_time_pts)[which(colnames(df_time_pts)=="Modifiers")] <- mod_name
       ggplot(df_time_pts, aes(x=Week,y=Effect)) +
-        geom_hline(yintercept = 0)+
+        geom_hline(yintercept = ref_line)+
         geom_ribbon(aes(ymin=LB, ymax=UB), alpha=0.5, color=F)+
         geom_line()+
         facet_wrap(mod_name, ncol = 3, labeller = label_both) +

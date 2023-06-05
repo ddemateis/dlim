@@ -10,9 +10,9 @@ sim_data(
   modifiers,
   noise = 1,
   type = 2,
-  mag = 1,
+  SNR,
   ncovariates = 0,
-  MaME = F
+  gamma = 1
 )
 }
 \arguments{
@@ -26,7 +26,7 @@ sim_data(
 
 \item{type}{a vector containing the number 1, 2, or 3 for simulation modification type: none, linear, complex. Default is 2}
 
-\item{mag}{value to magnify the signal of the true distributed lag functions, default is no magnification}
+\item{SNR}{value to magnify the signal of the true distributed lag functions, default is no magnification}
 
 \item{ncovariates}{number of covariates to add to the model, numeric vector of length 1.}
 }

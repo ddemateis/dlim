@@ -4,14 +4,12 @@
 \alias{sim_dlf}
 \title{Simulate Distributed Lag Functions}
 \usage{
-sim_dlf(L, modifiers, type, mag = 1)
+sim_dlf(L, modifiers, type)
 }
 \arguments{
 \item{L}{number of lags minus 1}
 
-\item{type}{simulation type: 1 is no modification, 2 is linear modification, 3 is complex modification, 4 is stronger complex modification}
-
-\item{mag}{value to magnify the signal of the true distributed lag function, default is no magnification}
+\item{type}{simulation type: 1 is no modification, 2 is linear scale modification, 3 is logistic shift modification, 4 is types 2 and 3 combined}
 
 \item{M}{vector of modifiers}
 }

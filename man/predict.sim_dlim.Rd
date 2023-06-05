@@ -4,10 +4,12 @@
 \alias{predict.sim_dlim}
 \title{Simulated DLIM Predictions}
 \usage{
-\method{predict}{sim_dlim}(object, type)
+\method{predict}{sim_dlim}(object, newdata = NULL, type = c("DLF", "CE", "response"))
 }
 \arguments{
 \item{object}{an object of class dlim}
+
+\item{newdata}{vector of modifiers for inference}
 
 \item{type}{Type of prediction ("response" for predicted responses, "DLF" for the estimated distributed lag functions, "CE" for cumulative effects)}
 

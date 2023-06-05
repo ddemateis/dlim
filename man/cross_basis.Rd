@@ -4,18 +4,27 @@
 \alias{cross_basis}
 \title{Build crossbasis}
 \usage{
-cross_basis(x, M, L = NULL, argmod = list(), arglag = list())
+cross_basis(
+  x,
+  M,
+  L = NULL,
+  argmod = list(),
+  arglag = list(),
+  model_type = "standard"
+)
 }
 \arguments{
 \item{x}{a numeric time series vector of length n or matrix of lagged exposures (columns) for n individuals (rows)}
 
-\item{M}{vector of length n containing modifying values}
+\item{M}{vector of length n containing modifier values}
 
 \item{L}{a numeric vector of length 1 containing the number of lag terms. This is required if \code{x} is vector, and is not used if \code{x} is a matrix.}
 
 \item{argmod}{a list: $fun is the spline function for the modifier, $df is the degrees of freedom, $sp is optional smoothing parameter}
 
 \item{arglag}{a list: $fun is the spline function for the lag, $df is the degrees of freedom, $sp is optional smoothing parameter}
+
+\item{model_type}{"linear" for a DLIM with linear interaction, "quadratic" for a DLIM with quadratic interaction, "standard" for a DLIM with splines}
 }
 \value{
 This function returns a list of 5 or 6 elements:

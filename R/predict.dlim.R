@@ -36,15 +36,15 @@ predict.dlim <- function(object, newdata=NULL, type=c("DLF","CE", "response"), c
   est_dlim <- list()
 
   #reconstruct B_mod for given modifiers
-  if(attr(object,"model_type")==4){
+  if(attr(object,"model_type")=="standard"){
     if(class(cb$B_mod)[1]=="ps"){
       B_mod <- ps(modifiers, knots=attr(cb$B_mod,"knots"),intercept = T)#mxdf_m
     }else{
       B_mod <- predict(cb$B_mod,modifiers) #mxdf_m
     }
-  }else if(attr(object,"model_type")==2){
+  }else if(attr(object,"model_type")=="linear"){
     B_mod <- cbind(rep(1,m), modifiers)
-  }else if(attr(object,"model_type")==3){
+  }else if(attr(object,"model_type")=="quadratic"){
     B_mod <- cbind(rep(1,m), modifiers, modifiers^2)
   }
 

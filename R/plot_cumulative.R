@@ -5,11 +5,12 @@
 #' @param new_modifiers a vector of new modifier values for prediction (numeric)
 #' @param mod_fit an object of class dlim (dlim)
 #' @param dlm_fit a list containing a \code{crossbasis} object from the \pkg{dlnm} package as the first element and a DLM model object as the second element (list)
-#' @param trans_fn if modifiers are transformed, specify back transformation function (character)
 #' @param mod_name modifier name (character)
+#' @param mod_trans if modifiers are transformed, specify back transformation function (character)
+#' @param link_trans if family for \code{glm} is not Gaussian, specify back transformation to undo link function (character)
 #' @return This function returns ggplot
 
-plot_cumulative <- function(new_modifiers, mod_fit, dlm_fit=NULL, trans_fn = NULL, mod_name = NULL){
+plot_cumulative <- function(new_modifiers, mod_fit, dlm_fit=NULL, mod_name = NULL, mod_trans = NULL, link_trans = NULL){
   library(ggplot2)
   library(viridis)
 
@@ -20,23 +21,36 @@ plot_cumulative <- function(new_modifiers, mod_fit, dlm_fit=NULL, trans_fn = NUL
     #predict DLM
     cb_dlm <- dlm_fit[[1]]
     model_dlm <- dlm_fit[[2]]
-    dlm_crosspred <- crosspred(cb_dlm,model_dlm,at=rep(1,37),cen = F)
+    nlag <- attr(cb_dlm, "lag")[2]+1
+    dlm_crosspred <- crosspred(cb_dlm,model_dlm,at=rep(1,nlag),cen = F)
     cumul_betas <- dlm_crosspred$allfit
-    cumul_lb <- dlm_crosspred$alllow
-    cumul_ub <- dlm_crosspred$allhigh
+    z <- qnorm(1 - (1 - 0.95)/2)
+    cumul_lb <- dlm_crosspred$allfit - z * dlm_crosspred$allse #for some reason $alllow is gone
+    cumul_ub <- dlm_crosspred$allfit + z * dlm_crosspred$allse #for some reason $allhigh is gone
   }
 
   #back transform modifiers if specified
-  if(!is.null(trans_fn)){
-    new_modifiers <- do.call(trans_fn,list(new_modifiers))
+  if(!is.null(mod_trans)){
+    new_modifiers <- do.call(mod_trans,list(new_modifiers))
   }
 
   #plot
+  ref_line <- 0
   if(is.null(dlm_fit)){
+
     df_cumul <- data.frame(Modifiers = c(new_modifiers),
                            Cumul_Effect = c(model_pred$est_dlim$betas_cumul),
                            LB = c(model_pred$est_dlim$cumul_LB),
                            UB = c(model_pred$est_dlim$cumul_UB))
+
+    if(is.null(link_trans)){
+      if(mod_fit$fit$family$family!="gaussian"){
+        warning("Family is not Gaussian. Use the link_trans argument to transform estimate.")
+      }
+    }else{
+      ref_line <- do.call(link_trans, list(0))
+      df_cumul[,2:4] <- do.call(link_trans,list(df_cumul[,2:4]))
+    }
 
     ggplot(df_cumul, aes(x=Modifiers,y=Cumul_Effect)) +
       geom_hline(yintercept = 0) +
@@ -56,16 +70,25 @@ plot_cumulative <- function(new_modifiers, mod_fit, dlm_fit=NULL, trans_fn = NUL
                            Model = factor(c(rep(model_name, length(new_modifiers)), rep("DLM", length(new_modifiers))), levels = c(model_name,"DLM"))
     )
 
+    if(is.null(link_trans)){
+      if(mod_fit$fit$family$family!="gaussian"){
+        warning("Family is not Gaussian. Use the link_trans argument to transform estimate.")
+      }
+    }else{
+      ref_line <- do.call(link_trans, list(0))
+      df_cumul[,2:4] <- do.call(link_trans,list(df_cumul[,2:4]))
+    }
+
     ggplot(df_cumul, aes(x=Modifiers,y=Cumul_Effect, color=Model, fill=Model)) +
-      geom_hline(yintercept = 0) +
+      geom_hline(yintercept = ref_line) +
       geom_ribbon(aes(ymin=LB, ymax=UB), alpha=0.2, color=NA)+
       geom_line()+
       xlab(ifelse(is.null(mod_name), "Modifier", mod_name)) +
       ylab("Cumulative Effect") +
       theme_classic() +
-      ylim(-0.1,0.1) +
       scale_fill_viridis(discrete=T) +
       scale_color_viridis(discrete=T)
+
   }
 
 }

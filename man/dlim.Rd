@@ -13,7 +13,8 @@ dlim(
   df_l,
   penalize = T,
   fit_fn = "gam",
-  MaME = T
+  model_type = "standard",
+  ...
 )
 }
 \arguments{
@@ -33,7 +34,7 @@ dlim(
 
 \item{fit_fn}{specify "gam" to use the \code{gam} function for data sets that are not very large, and specify "bam" to use the \code{bam} function for data sets that are very large. Default will fit using \code{gam}.}
 
-\item{MaME}{True to include modifier as linear main effect}
+\item{...}{Other arguments to pass to model fitting function}
 }
 \value{
 This function returns an object of class dlim
