@@ -4,19 +4,20 @@
 #' @import mgcv
 #' @import dlnm
 #' @import splines
-#' @param y vector of response values
-#' @param x matrix of exposure history
-#' @param modifiers vector of modifying values
-#' @param z matrix of z
-#' @param df_m degrees of freedom for modifier basis
-#' @param df_l degrees of freedom for exposure time basis
-#' @param penalize True to penalize model
-#' @param fit_fn specify "gam" to use the \code{gam} function for data sets that are not very large, and specify "bam" to use the \code{bam} function for data sets that are very large. Default will fit using \code{gam}.
+#' @param y vector of response values (class "\code{numeric}")
+#' @param x matrix of exposure history (columns) for individuals (rows) (class "\code{matrix}")
+#' @param modifiers vector of modifying values (class "\code{numeric}")
+#' @param z matrix of covariates, not including the modifier (class "\code{matrix}")
+#' @param df_m degrees of freedom for modifier basis (class "\code{numeric}")
+#' @param df_l degrees of freedom for exposure time basis (class "\code{numeric}")
+#' @param penalize \code{TRUE} to penalize model (class "\code{logical}")
+#' @param fit_fn specify "gam" to use the \code{gam} function for data sets that are not very large, and specify "bam" to use the \code{bam} function for data sets that are very large. Default will fit using \code{gam}. (class "\code{character}")
+#' @param model_type "linear" for a DLIM with linear interaction, "quadratic" for a DLIM with quadratic interaction, "standard" for a DLIM with splines (class "\code{character}")
 #' @param ... Other arguments to pass to model fitting function
-#' @return This function returns an object of class dlim
-#' \item{cb}{cross-basis (matrix)}
-#' \item{fit}{model object (gam)}
-#' \item{modifiers}{modifying values (vector)}
+#' @return This function returns a list that is an object of class "\code{dlim}" with the following components
+#' \item{cb}{cross-basis (class "\code{matrix}")}
+#' \item{fit}{model object (class "\code{lm}", "\code{glm}", "\code{gam}")}
+#' \item{modifiers}{modifying values (class "\code{numeric}")}
 #' \item{call}{model call}
 
 dlim <- function(y, x, modifiers, z=NULL, df_m, df_l, penalize=T, fit_fn="gam", model_type="standard", ...){

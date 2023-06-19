@@ -2,9 +2,10 @@
 #' @description generate true distributed lag function values for a given type of simulation
 #' @seealso \link[dlim]{sim_data}
 #' @export
-#' @param L number of lags minus 1
-#' @param M vector of modifiers
-#' @param type simulation type: 1 is no modification, 2 is linear scale modification, 3 is logistic shift modification, 4 is types 2 and 3 combined
+#' @param L Number of lags minus 1
+#' @param M Vector of modifiers
+#' @param type Effect modification simulation type: 1 is no modification, 2 is linear scale modification, 3 is non-linear shift modification, 4 is types 2 and 3 combined
+#' @return This function returns the true distributed lag function values (class "\code{numeric}")
 
 sim_dlf <- function(L,modifiers,type){
   method<-"normal"

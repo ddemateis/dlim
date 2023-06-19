@@ -7,11 +7,14 @@
 sim_dlf(L, modifiers, type)
 }
 \arguments{
-\item{L}{number of lags minus 1}
+\item{L}{Number of lags minus 1}
 
-\item{type}{simulation type: 1 is no modification, 2 is linear scale modification, 3 is logistic shift modification, 4 is types 2 and 3 combined}
+\item{type}{Effect modification simulation type: 1 is no modification, 2 is linear scale modification, 3 is non-linear shift modification, 4 is types 2 and 3 combined}
 
-\item{M}{vector of modifiers}
+\item{M}{Vector of modifiers}
+}
+\value{
+This function returns the true distributed lag function values (class "\code{numeric}")
 }
 \description{
 generate true distributed lag function values for a given type of simulation

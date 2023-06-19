@@ -23,18 +23,18 @@ library(dlim)
 
 # Installation
 
-The latest version of this package released on CRAN can be downloaded and installed by 
+The latest version of this package on GitHub can be downloaded and installed by 
 
-`install.packages("dlim")`
+`install_github("ddemateis/dlim")`
 
-or through the R/RStudio menu. Then the package can be loaded by
+Then the package can be loaded by
 
 `library(dlim)`
 
 
 # Methodology and Applications
 
-mention publication and give a brief summary
+Pending
 
 # Functions in the package
 
@@ -44,15 +44,15 @@ To fit a DLIM using this package, first use the `dlim()` function, which fits a 
 
 ## The function `predict()`
 
-After using the `dlim()` function to fit a DLIM, you can use `predict()` to make predictions with confidence intervals for any set of modifying values. `predict()` is an S3 method for objecgts of class `dlim` which takes an object of class `dlim`, `object`, and the type of prediction, `type = "DLF"` to predict the distributed lag function or point-wise effects for a set of modifier, `type = "CE"` to predict the cumulative effects for a set of modifiers, or `type = c("CE", "DLF")` to predict both the distributed lag function and cumulative effect. You can pass a new vector of modifier values to `newdata`. If left as `NULL`, then prediction will be on the original modifier values. The confidence level can be changed using `alpha`. 
+After using the `dlim()` function to fit a DLIM, you can use `predict()` to make predictions with confidence intervals for any set of modifying values. `predict()` is an S3 method for objects of class `dlim` which takes an object of class `dlim`, `object`, and the type of prediction, `type = "DLF"` to predict the distributed lag function or point-wise effects for a set of modifier, `type = "CE"` to predict the cumulative effects for a set of modifiers, or `type = c("CE", "DLF")` to predict both the distributed lag function and cumulative effect. You can pass a new vector of modifier values to `newdata`. If left as `NULL`, then prediction will be on the original modifier values. The confidence level can be changed using `alpha`. 
 
 ## The function `plot_cumulative()`
 
-After using the `dlim()` function to fit a DLIM, you can use the `plot_cumulative()` function to plot the cumulative effects and confidence regions for any set of modifying values. `plot_cumulative()` takes a vector of modifying values, `new_mods`, and an object of class `dlim`, `mod_fit`. Optionally, you can provide the name of the modifier for the plot axis label, `mod_name`, and a back-transformation function if the specified modifier values have been transformed. This function also have the ability to compare a DLM fit to a DLIM fit. If the `dlm_fit` argument is passed a list containing a `crossbasis` object from the `dlnm` package and a fitted DLM model object, then the plot will also include the estimated cumulative effects and confidence region for the same modifying values for the DLM. 
+After using the `dlim()` function to fit a DLIM, you can use the `plot_cumulative()` function to plot the cumulative effects and confidence regions for any set of modifying values. `plot_cumulative()` takes a vector of modifying values, `new_modifiers`, and an object of class `dlim`, `mod_fit`. Optionally, you can provide the name of the modifier for the plot axis label, `mod_name`, and a back-transformation function to `mod_trans` if the specified modifier values have been transformed. This function also have the ability to compare a DLM fit to a DLIM fit. If the `dlm_fit` argument is passed a list containing a `crossbasis` object from the `dlnm` package and a fitted DLM model object, then the plot will also include the estimated cumulative effects and confidence region for the same modifying values for the DLM. If the model family is not Gaussian, specify a transformation function using `link_trans`. 
 
 ## The function `plot_DLF()`
 
-After using the `dlim()` function to fit a DLIM, you can use the `plot_DLF()` function to create a grid of plots for the estimated point-wise effects (i.e. estimated distributed lag function) and confidence regions for any set of modifying values. `plot_DLF()` takes a vector of modifying values, `new_mods`, an object of class `dlim`, `mod_fit`, and whether to create a grid of plots by modifier value, `plot_by = "modifier"`, or by particular time points, `plot_by = "time"`. If you are want each plot in the grid to be for a time point, you must pass `time_pts` a vector of time points. Optionally, you can provide the name of the modifier for the plot axis label, `mod_name`, and a back-transformation function if the specified modifier values have been transformed. This function also have the ability to compare a DLM fit to a DLIM fit. If the `dlm_fit` argument is passed a list containing a `crossbasis` object from the `dlnm` package and a fitted DLM model object, then the plot will also include the estimated cumulative effects and confidence region for the same modifying values for the DLM. 
+After using the `dlim()` function to fit a DLIM, you can use the `plot_DLF()` function to create a grid of plots for the estimated point-wise effects (i.e. estimated distributed lag function) and confidence regions for any set of modifying values. `plot_DLF()` takes a vector of modifying values, `new_modifiers`, an object of class `dlim`, `mod_fit`, and whether to create a grid of plots by modifier value, `plot_by = "modifier"`, or by particular time points, `plot_by = "time"`. If you are want each plot in the grid to be for a time point, you must pass `time_pts` a vector of time points. Optionally, you can provide the name of the modifier for the plot axis label, `mod_name`, and a back-transformation function if the specified modifier values have been transformed. This function also have the ability to compare a DLM fit to a DLIM fit. If the `dlm_fit` argument is passed a list containing a `crossbasis` object from the `dlnm` package and a fitted DLM model object, then the plot will also include the estimated cumulative effects and confidence region for the same modifying values for the DLM. If the model family is not Gaussian, specify a transformation function using `link_trans`. 
 
 # Example 
 
@@ -63,7 +63,7 @@ data("ex_data")
 str(ex_data)
 ```
 
-This data set is a list containing the response (`$y`), the exposure history (`$exposure`), the modifier (`$modifier`), and covariates (`$z`). Now fit the DLIM using `dlim()`:
+This data set is a list containing the response (`$y`), the exposure history (`$exposure`), the modifier (`$modifier`), and covariates (`$z`). Now fit the DLIM using the `dlim` function:
 
 ```{r}
 dlim_fit <- dlim(y = ex_data$y, x = ex_data$exposure, modifier = ex_data$modifier, z = ex_data$z, df_m = 10, df_l = 10)
@@ -75,25 +75,46 @@ We can quickly look at the object by printing it:
 dlim_fit
 ```
 
-This tells us the GAM was fit using the Gaussian family and identity link function, there are 10 degrees of freedom for both bases, the number of exposure time points is 37, and the model was fit using penalization. To see predicted cumulative or point-wise effects, we can use the `predict()` function: (go through more)
+This tells us the GAM was fit using the Gaussian family and identity link function, there are 10 degrees of freedom for both bases, the number of exposure time points is 37, and the model was fit using penalization.
+
+To see predicted cumulative or point-wise effects, we can use the `predict()` function. Specify `type="CE"` to obtain cumulative effect estimates, `type="DLF"` to obtain point-wise effect estimates, or `type=c("CE","DLF")` to obtain both. The order does not matter. The following gives cumulative effect estimates for a modifier value of 0.5, along with upper and lower confidence intervals:
 
 ```{r}
-dlim_pred <- predict(dlim_fit, newdata = 0.5, type=c("CE", "DLF"))
-dlim_pred$est_dlim$betas
+dlim_pred <- predict(dlim_fit, newdata = 0.5, type="CE")
+data.frame(cumul_betas = c(dlim_pred$est_dlim$betas_cumul),
+           LB = c(dlim_pred$est_dlim$cumul_LB),
+           UB = c(dlim_pred$est_dlim$cumul_UB))
 ```
 
-We can also create plots for the cumulative effects and point-wise effects: 
+The following gives point-wise effect estimates for a modifier value of 0.5, along with upper and lower confidence intervals:
 
 ```{r}
-plot_cumulative(new_mods = seq(0.1,0.9,0.1), mod_fit = dlim_fit, mod_name = "modifier")
+dlim_pred <- predict(dlim_fit, newdata = 0.5, type="DLF")
+data.frame(betas = c(dlim_pred$est_dlim$betas),
+           LB = c(dlim_pred$est_dlim$LB),
+           UB = c(dlim_pred$est_dlim$UB))
+```
+
+We can also create plots for the cumulative effects and point-wise effects. The following plots the estimated cumulative effects over a grid of modifier values:
+
+```{r}
+plot_cumulative(new_modifiers = seq(0.1,0.9,0.1), mod_fit = dlim_fit, mod_name = "modifier")
 ```
 
 
+There are two ways to look at estimated point-wise effects: by modifier or by time. To create a grid of estimated point-wise effect plots for a select number of time points, specify `plot_by = time` and provide select time points to `time_pts`. The following plots estimated point-wise effects across a grid of modifiers isolated for weeks 10, 20, and 30: 
+
+```{r}
+plot_DLF(new_modifiers = seq(0.1,0.9,0.1), mod_fit = dlim_fit, mod_name = "modifier", plot_by = "time", time_pts = c(10,20,30))
+```
+
+To create a grid of estimated point-wise effect plots for a select number of modifier values, specify `plot_by = modifier` and provide select modifier values to `new_modifiers`. The following plots estimated point-wise effects across all time points isolated for modifier values 0.25, 0.5, and 0.75: 
+
+```{r}
+plot_DLF(new_modifiers = c(0.25, 0.5, 0.75), mod_fit = dlim_fit, mod_name = "modifier", plot_by = "modifier")
+```
 
 
-
-
-# Simulation Study
 
 # Changes to package 
 

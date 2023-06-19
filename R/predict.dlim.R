@@ -4,14 +4,14 @@
 #' @export
 #' @import splines
 #' @import dlnm
-#' @param object an object of class dlim
-#' @param newdata a vector of new modifier values for prediction (default is NULL)
-#' @param type Type of prediction ("DLF" for the estimated distributed lag functions, "CE" for cumulative effects, "response" for fitted values, or any combination of these in a vector)
-#' @param conf.level The confidence level
+#' @param object an object of class "\code{dlim}" 
+#' @param newdata a vector of new modifier values for prediction (class "\code{numeric}")
+#' @param type Type of prediction. "DLF" for the estimated distributed lag functions, "CE" for cumulative effects, "response" for fitted values, or any combination of these in a vector (class "\code{character}")
+#' @param conf.level The confidence level (class "\code{numeric}")
 #' @return This function returns a list of 3 elements:
-#' \item{est_dlim}{cumulative and/or point-wise estimates, standard errors, and confidence intervals (list)}
-#' \item{cb}{cross-basis object ()}
-#' \item{model}{model object (gam)}
+#' \item{est_dlim}{cumulative and/or point-wise estimates, standard errors, and confidence intervals (class "\code{list}")}
+#' \item{cb}{cross-basis object (class "\code{cross-basis}")}
+#' \item{model}{model object (class "\code{gam}")}
 
 predict.dlim <- function(object, newdata=NULL, type=c("DLF","CE", "response"), conf.level = 0.95){
 

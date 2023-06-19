@@ -14,20 +14,20 @@ plot_cumulative(
 )
 }
 \arguments{
-\item{new_modifiers}{a vector of new modifier values for prediction (numeric)}
+\item{new_modifiers}{a vector of new modifier values for prediction (class "\code{numeric}")}
 
-\item{mod_fit}{an object of class dlim (dlim)}
+\item{mod_fit}{DLIM model object (class "\code{dlim}")}
 
-\item{dlm_fit}{a list containing a \code{crossbasis} object from the \pkg{dlnm} package as the first element and a DLM model object as the second element (list)}
+\item{dlm_fit}{a list containing a \code{crossbasis} object from the \pkg{dlnm} package as the first element and a DLM model object as the second element (class "\code{list}")}
 
 \item{mod_name}{modifier name (character)}
 
-\item{mod_trans}{if modifiers are transformed, specify back transformation function (character)}
+\item{mod_trans}{if modifiers are transformed, specify back transformation function (class "\code{character}")}
 
-\item{link_trans}{if family for \code{glm} is not Gaussian, specify back transformation to undo link function (character)}
+\item{link_trans}{if family for \code{glm} is not Gaussian, specify back transformation to undo link function (class "\code{character}")}
 }
 \value{
-This function returns ggplot
+This function returns a ggplot for cumulative effects, including for a DLM if specified
 }
 \description{
 Plot estimated distributed lag function values from a DLIM object, can also compare those of a DLM

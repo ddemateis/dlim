@@ -12,19 +12,19 @@
 )
 }
 \arguments{
-\item{object}{an object of class dlim}
+\item{object}{an object of class "\code{dlim}"}
 
-\item{newdata}{a vector of new modifier values for prediction (default is NULL)}
+\item{newdata}{a vector of new modifier values for prediction (class "\code{numeric}")}
 
-\item{type}{Type of prediction ("DLF" for the estimated distributed lag functions, "CE" for cumulative effects, "response" for fitted values, or any combination of these in a vector)}
+\item{type}{Type of prediction. "DLF" for the estimated distributed lag functions, "CE" for cumulative effects, "response" for fitted values, or any combination of these in a vector (class "\code{character}")}
 
-\item{conf.level}{The confidence level}
+\item{conf.level}{The confidence level (class "\code{numeric}")}
 }
 \value{
 This function returns a list of 3 elements:
-\item{est_dlim}{cumulative and/or point-wise estimates, standard errors, and confidence intervals (list)}
-\item{cb}{cross-basis object ()}
-\item{model}{model object (gam)}
+\item{est_dlim}{cumulative and/or point-wise estimates, standard errors, and confidence intervals (class "\code{list}")}
+\item{cb}{cross-basis object (class "\code{cross-basis}")}
+\item{model}{model object (class "\code{gam}")}
 }
 \description{
 Predicted values based on a \code{dlim} object.

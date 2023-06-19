@@ -4,14 +4,21 @@
 #' @export
 #' @import mgcv
 #' @import dlnm
-#' @param data output from sim_data()
+#' @param data output from \code{sim_data}
 #' @param df_m degrees of freedom for modifiers
 #' @param df_l degrees of freedom for lags
 #' @param penalize True to penalize model
 #' @param fit_dlm True to additionally fit dlm for comparison
 #' @param model_type "linear" for a DLIM with linear interaction, "quadratic" for a DLIM with quadratic interaction, "standard" for a DLIM with splines
 #' @param ... arguments to pass to model fitting function
-#' @return This function returns an object of class dlim
+#' @return This function returns an object of class "\code{sim_dlim}"
+#' \item{cb}{DLIM cross-basis (class "\code{cross-basis}")}
+#' \item{fit}{DLIM model fit (class "\code{lm}", "\code{glm}", "\code{gam}")}
+#' \item{cb_dlm}{DLM cross-basis (class "\code{crossbasis}")}
+#' \item{model_dlm}{DLM model fit (class "\code{lm}", "\code{glm}", "\code{gam}")}
+#' \item{true_betas}{true linear effect of the exposure on the response for each individual and time point (class "\code{matrix}")}
+#' \item{modifiers}{\code{modifiers} from \code{numeric}}
+#' \item{data}{\code{data} (class "\code{list}")}
 
 sim_dlim <- function(data, df_m, df_l, penalize=T, fit_dlm=F, model_type="standard",...){
 

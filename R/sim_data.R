@@ -1,24 +1,24 @@
 #' Simulate Data
-#' @description Simulate data to use with the \pkg{dlim} package. There are different scenarios to choose for simulation.
+#' @description Simulate data to use with the \pkg{dlim} package. There are different effect modification scenarios to choose for simulation.
 #' @export
 #' @import tsModel
-#' @param x a numeric time series vector of length n or matrix of lagged exposures for n individuals
-#' @param L a numeric vector of length 1 containing the number of lag terms. This is required if \code{x} is vector, and is not used if \code{x} is a matrix.
-#' @param modifiers vector of length n containing modifying values
-#' @param noise a vector of length 1 containing the standard deviation for a normal distribution with mean 0 used to add noise to the simulated response values.
-#' @param type a vector containing the number 1, 2, or 3 for simulation modification type: none, linear, complex. Default is 2
-#' @param SNR value to magnify the signal of the true distributed lag functions, default is no magnification
+#' @param x a time series vector of length \code{n} or matrix of lagged exposures for \code{n} individuals (class "\code{numeric}", "\code{matrix}")
+#' @param L a vector of length 1 containing the number of lag terms. This is required if \code{x} is vector, and is not used if \code{x} is a matrix (class "\code{numeric}")
+#' @param modifiers vector of length \code{n} containing modifying values (class "\code{numeric}")
+#' @param noise a vector of length 1 containing the standard deviation for a normal distribution with mean 0 used to add noise to the simulated response values. Must proivde if \code{SNR} is not provided (class "\code{numeric}")
+#' @param type a vector containing the number 1, 2, 3, or 4 for simulation modification type: none, linear, non-linear shift, non-linear shift with linear scale (class "\code{numeric}")
+#' @param SNR The signal-to-noise ratio. If \code{SNR} is provided, but \code{noise} is not, \code{noise} is reset to be the standard deviation of the response, before adding noise.   (class "\code{numeric}")
 #' @param ncovariates number of covariates to add to the model, numeric vector of length 1.
-#' @return This returns a list of 9 items:
-#' \item{x}{a lagged exposure matrix. If \code{x} was a matrix, it is unchanged.}
-#' \item{L}{a numeric vector o flength 1 containing the number of lag terms}
-#' \item{modifiers}{the \code{modifiers} argument}
-#' \item{y}{a numeric vector of length \code{nrow(x)} containing the perturbed simulated response values. obtained by adding a \code{N(0,noise)} random draw to \code{y}}
-#' \item{betas}{a matrix containing true coefficients for each lag/modifier combination, with each row representing a lag and each column a modifier}
-#' \item{betas_cumul}{a numeric vector of length \code{L+1} containing cumululative true coefficients for the lag terms, summed over modifiers}
-#' \item{sim_type}{simulation type 1, 2, or 3 (numeric)}
-#' \item{Z}{covariates (matrix)}
-#' \item{gammas}{true coefficients for the covariates (numeric)}
+#' @param gamma True coefficient for the main effect of the modifier (class "\code{numeric}")
+#' @return This returns a list of 8 items:
+#' \item{x}{a lagged exposure matrix. If \code{x} was a matrix, it is unchanged. (class "\code{matrix}")}
+#' \item{L}{a numeric vector of length 1 containing the number of lag terms (class "\code{numeric}")}
+#' \item{modifiers}{the \code{modifiers} argument (class "\code{numeric}")}
+#' \item{y}{a numeric vector of length \code{nrow(x)} containing the perturbed simulated response values. (class "\code{numeric}")}
+#' \item{betas}{a matrix containing true coefficients for each lag/modifier combination, with each row representing a lag and each column a modifier (class "\code{matrix}")}
+#' \item{betas_cumul}{a numeric vector of length \code{L+1} containing cumulative true coefficients for the lag terms, summed over modifiers (class "\code{numeric}")}
+#' \item{Z}{covariates (class "\code{matrix}")}
+#' \item{gammas}{true coefficients for the covariates (class "\code{numeric}")}
 
 
 

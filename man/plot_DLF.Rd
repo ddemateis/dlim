@@ -16,24 +16,24 @@ plot_DLF(
 )
 }
 \arguments{
-\item{new_modifiers}{a vector of new modifier values for prediction (numeric)}
+\item{new_modifiers}{a vector of new modifier values for prediction (class "\code{numeric}")}
 
-\item{mod_fit}{an object of class dlim (dlim)}
+\item{mod_fit}{DLIM model object (class "\code{dlim}")}
 
-\item{mod_name}{modifier name that follows variable name nomenclature (character)}
+\item{mod_name}{modifier name that follows variable name nomenclature (class "\code{character}")}
 
-\item{dlm_fit}{a list containing a \code{crossbasis} object from the \pkg{dlnm} package as the first element and a DLM model object as the second element (list)}
+\item{dlm_fit}{a list containing a \code{crossbasis} object from the \pkg{dlnm} package as the first element and a DLM model object as the second element (class "\code{list}")}
 
-\item{plot_by}{choose to create plots for particular modifier values, "modifier", or particular time points, "time", (character)}
+\item{plot_by}{choose to create plots for particular modifier values, "modifier", or particular time points, "time", (class "\code{character}")}
 
-\item{time_pts}{a set of time points if plotting by time (numeric)}
+\item{time_pts}{a set of time points if plotting by time (class "\code{numeric}")}
 
-\item{mod_trans}{if modifiers are transformed, specify back transformation function (character)}
+\item{mod_trans}{if modifiers are transformed, specify back transformation function (class "\code{character}")}
 
-\item{link_trans}{if family for \code{glm} is not Gaussian, specify back transformation to undo link function (character)}
+\item{link_trans}{if family for \code{glm} is not Gaussian, specify back transformation to undo link function (class "\code{character}")}
 }
 \value{
-This function returns ggplot
+This function returns a ggplot for point-wise effects isolated by either time points or modifier, including a DLM if specified
 }
 \description{
 Plot estimated cumulative effects from a DLIM object, can also compare estimated cumulative effects between a DLM and DLIM

@@ -18,29 +18,31 @@ dlim(
 )
 }
 \arguments{
-\item{y}{vector of response values}
+\item{y}{vector of response values (class "\code{numeric}")}
 
-\item{x}{matrix of exposure history}
+\item{x}{matrix of exposure history (columns) for individuals (rows) (class "\code{matrix}")}
 
-\item{modifiers}{vector of modifying values}
+\item{modifiers}{vector of modifying values (class "\code{numeric}")}
 
-\item{z}{matrix of z}
+\item{z}{matrix of covariates, not including the modifier (class "\code{matrix}")}
 
-\item{df_m}{degrees of freedom for modifier basis}
+\item{df_m}{degrees of freedom for modifier basis (class "\code{numeric}")}
 
-\item{df_l}{degrees of freedom for exposure time basis}
+\item{df_l}{degrees of freedom for exposure time basis (class "\code{numeric}")}
 
-\item{penalize}{True to penalize model}
+\item{penalize}{\code{TRUE} to penalize model (class "\code{logical}")}
 
-\item{fit_fn}{specify "gam" to use the \code{gam} function for data sets that are not very large, and specify "bam" to use the \code{bam} function for data sets that are very large. Default will fit using \code{gam}.}
+\item{fit_fn}{specify "gam" to use the \code{gam} function for data sets that are not very large, and specify "bam" to use the \code{bam} function for data sets that are very large. Default will fit using \code{gam}. (class "\code{character}")}
+
+\item{model_type}{"linear" for a DLIM with linear interaction, "quadratic" for a DLIM with quadratic interaction, "standard" for a DLIM with splines (class "\code{character}")}
 
 \item{...}{Other arguments to pass to model fitting function}
 }
 \value{
-This function returns an object of class dlim
-\item{cb}{cross-basis (matrix)}
-\item{fit}{model object (gam)}
-\item{modifiers}{modifying values (vector)}
+This function returns a list that is an object of class "\code{dlim}" with the following components
+\item{cb}{cross-basis (class "\code{matrix}")}
+\item{fit}{model object (class "\code{lm}", "\code{glm}", "\code{gam}")}
+\item{modifiers}{modifying values (class "\code{numeric}")}
 \item{call}{model call}
 }
 \description{

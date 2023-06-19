@@ -2,13 +2,13 @@
 #' @description Plot estimated distributed lag function values from a DLIM object, can also compare those of a DLM
 #' @export
 #' @import ggplot2
-#' @param new_modifiers a vector of new modifier values for prediction (numeric)
-#' @param mod_fit an object of class dlim (dlim)
-#' @param dlm_fit a list containing a \code{crossbasis} object from the \pkg{dlnm} package as the first element and a DLM model object as the second element (list)
+#' @param new_modifiers a vector of new modifier values for prediction (class "\code{numeric}")
+#' @param mod_fit DLIM model object (class "\code{dlim}")
+#' @param dlm_fit a list containing a \code{crossbasis} object from the \pkg{dlnm} package as the first element and a DLM model object as the second element (class "\code{list}")
 #' @param mod_name modifier name (character)
-#' @param mod_trans if modifiers are transformed, specify back transformation function (character)
-#' @param link_trans if family for \code{glm} is not Gaussian, specify back transformation to undo link function (character)
-#' @return This function returns ggplot
+#' @param mod_trans if modifiers are transformed, specify back transformation function (class "\code{character}")
+#' @param link_trans if family for \code{glm} is not Gaussian, specify back transformation to undo link function (class "\code{character}")
+#' @return This function returns a ggplot for cumulative effects, including for a DLM if specified
 
 plot_cumulative <- function(new_modifiers, mod_fit, dlm_fit=NULL, mod_name = NULL, mod_trans = NULL, link_trans = NULL){
   library(ggplot2)

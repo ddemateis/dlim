@@ -15,7 +15,7 @@ sim_dlim(
 )
 }
 \arguments{
-\item{data}{output from sim_data()}
+\item{data}{output from \code{sim_data}}
 
 \item{df_m}{degrees of freedom for modifiers}
 
@@ -30,7 +30,14 @@ sim_dlim(
 \item{...}{arguments to pass to model fitting function}
 }
 \value{
-This function returns an object of class dlim
+This function returns an object of class "\code{sim_dlim}"
+\item{cb}{DLIM cross-basis (class "\code{cross-basis}")}
+\item{fit}{DLIM model fit (class "\code{lm}", "\code{glm}", "\code{gam}")}
+\item{cb_dlm}{DLM cross-basis (class "\code{crossbasis}")}
+\item{model_dlm}{DLM model fit (class "\code{lm}", "\code{glm}", "\code{gam}")}
+\item{true_betas}{true linear effect of the exposure on the response for each individual and time point (class "\code{matrix}")}
+\item{modifiers}{\code{modifiers} from \code{numeric}}
+\item{data}{\code{data} (class "\code{list}")}
 }
 \description{
 Fit DLIM for simulation

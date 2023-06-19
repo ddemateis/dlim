@@ -4,18 +4,19 @@
 #' @export
 #' @import splines
 #' @import dlnm
-#' @param object an object of class dlim
-#' @param newdata vector of modifiers for inference
-#' @param type Type of prediction ("response" for predicted responses, "DLF" for the estimated distributed lag functions, "CE" for cumulative effects)
-#' @param CI True to include confidence intervals (only for type="DLF" or type="CE")
-#' @return This function returns a list of 5 elements:
-#' \item{betas_cumul }{cumululative lag estimates (numeric)}
-#' \item{cumul_SE}{SE for cumulative beta estimates (numeric)}
-#' \item{betas}{distributive lag functions (matrix)}
-#' \item{LB}{approximate 95% CI lower bound for beta estimates (numeric)}
-#' \item{UB}{approximate 95% CI upper bound for beta estimates (numeric)}
-#' \item{SE}{SE for beta estimates (numeric)}
-#' \item{modifiers}{modifiers used for estimation}
+#' @param object an object of class "\code{dlim}" 
+#' @param newdata vector of modifiers for inference (class "\code{numeric}")
+#' @param type Type of prediction. "response" for predicted responses, "DLF" for the estimated distributed lag functions, "CE" for cumulative effects (class "\code{character}")
+#' @param CI \code{TRUE} to include confidence intervals, only for type="DLF" or type="CE" (class "\code{logical}")
+#' @return This function returns a list of 4 or 7 elements:
+#' \item{est_dlim}{\code{est_dlim} element from \code{predict.dlim} (class "\code{list}")}
+#' \item{cb}{cross-bais from \code{object} (class "\code{cross-basis}")}
+#' \item{fit}{\code{fit} from \code{object} (class "\code{lm}", "\code{glm}", "\code{gam}")}
+#' \item{true_betas}{\code{true_betas} from \code{object} (class "\code{matrix}")}
+#' \item{cb_dlm}{\code{cb_dlm} from \code{object} (class "\code{crosspred}")}
+#' \item{model_dlm}{\code{model_dlm} from \code{object} (class "\code{lm}", "\code{glm}", "\code{gam}")}
+#' \item{est_dlm}{cumulative and/or point-wise estimates, standard errors, and confidence intervals for the DLM (class "\code{list}")}
+
 
 predict.sim_dlim <- function(object, newdata=NULL, type=c("DLF","CE", "response")){
 

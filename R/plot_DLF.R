@@ -3,15 +3,15 @@
 #' @export
 #' @import ggplot2
 #' @import reshape2
-#' @param new_modifiers a vector of new modifier values for prediction (numeric)
-#' @param mod_fit an object of class dlim (dlim)
-#' @param mod_name modifier name that follows variable name nomenclature (character)
-#' @param dlm_fit a list containing a \code{crossbasis} object from the \pkg{dlnm} package as the first element and a DLM model object as the second element (list)
-#' @param plot_by choose to create plots for particular modifier values, "modifier", or particular time points, "time", (character)
-#' @param time_pts a set of time points if plotting by time (numeric)
-#' @param mod_trans if modifiers are transformed, specify back transformation function (character)
-#' @param link_trans if family for \code{glm} is not Gaussian, specify back transformation to undo link function (character)
-#' @return This function returns ggplot
+#' @param new_modifiers a vector of new modifier values for prediction (class "\code{numeric}")
+#' @param mod_fit DLIM model object (class "\code{dlim}")
+#' @param mod_name modifier name that follows variable name nomenclature (class "\code{character}")
+#' @param dlm_fit a list containing a \code{crossbasis} object from the \pkg{dlnm} package as the first element and a DLM model object as the second element (class "\code{list}")
+#' @param plot_by choose to create plots for particular modifier values, "modifier", or particular time points, "time", (class "\code{character}")
+#' @param time_pts a set of time points if plotting by time (class "\code{numeric}")
+#' @param mod_trans if modifiers are transformed, specify back transformation function (class "\code{character}")
+#' @param link_trans if family for \code{glm} is not Gaussian, specify back transformation to undo link function (class "\code{character}")
+#' @return This function returns a ggplot for point-wise effects isolated by either time points or modifier, including a DLM if specified
 
 plot_DLF <- function(new_modifiers, mod_fit, mod_name, dlm_fit=NULL, plot_by, time_pts=NULL, mod_trans = NULL, link_trans = NULL){
   library(ggplot2)

@@ -13,7 +13,7 @@ print.dlim <- function(x){
 
   cat("Object of class dlim", "\n")
 
-  print(x$model$family)
+  print(x$fit$family)
 
   print(x$call)
 
