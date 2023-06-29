@@ -13,8 +13,10 @@ Imports:
   dlnm,
   ggplot2,
   mgcv,
+  reshape2,
   splines,
-  tsModel
+  tsModel,
+  viridis
 Depends: 
     R (>= 2.10)
 Suggests: 

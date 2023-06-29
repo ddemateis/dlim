@@ -46,6 +46,16 @@ cross_basis <- function(x,M,L=NULL,argmod=list(),arglag=list(), model_type="stan
 
 
   #Cross the modified exposures with the lag basis.
+  # create_cb <- function(i){
+  #   B_i <- B_mod[i,] #eqn 2
+  #   X_i <- matrix(c(as.matrix(X[i,])),ncol=1)
+  #   X_tilde <- X_i%*%B_i #L+1 x df_m
+  #   B_temp <- t(X_tilde) %*% B_lag  # df_m x df_l
+  #   return(c(t(B_temp))) #1 x df_m*df_l, vectorizes by column, so this is grouped by modifier
+  # }
+  # cb <- t(sapply(1:n, create_cb))
+  
+  #same as above, but with a for loop not apply function
   cb <- matrix(NA, n, df_l*df_m)
   for(i in 1:n){
     B_i <- B_mod[i,] #eqn 2

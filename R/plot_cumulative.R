@@ -2,6 +2,7 @@
 #' @description Plot estimated distributed lag function values from a DLIM object, can also compare those of a DLM
 #' @export
 #' @import ggplot2
+#' @import viridis
 #' @param new_modifiers a vector of new modifier values for prediction (class "\code{numeric}")
 #' @param mod_fit DLIM model object (class "\code{dlim}")
 #' @param dlm_fit a list containing a \code{crossbasis} object from the \pkg{dlnm} package as the first element and a DLM model object as the second element (class "\code{list}")

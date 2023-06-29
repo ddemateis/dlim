@@ -3,6 +3,7 @@
 #' @export
 #' @import ggplot2
 #' @import reshape2
+#' @import viridis
 #' @param new_modifiers a vector of new modifier values for prediction (class "\code{numeric}")
 #' @param mod_fit DLIM model object (class "\code{dlim}")
 #' @param mod_name modifier name that follows variable name nomenclature (class "\code{character}")
