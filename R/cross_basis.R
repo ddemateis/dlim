@@ -2,9 +2,9 @@
 #' @description Creates cross-basis using natural splines for regression in DLIM
 #' @seealso \link[dlim]{dlim}
 #' @export
-#' @import tsModel
-#' @import splines
-#' @import dlnm
+#' @importFrom tsModel
+#' @importFrom splines
+#' @importFrom dlnm
 #' @param x a numeric time series vector of length n or matrix of lagged exposures (columns) for n individuals (rows)
 #' @param M vector of length n containing modifier values
 #' @param L a numeric vector of length 1 containing the number of lag terms. This is required if \code{x} is vector, and is not used if \code{x} is a matrix.

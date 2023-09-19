@@ -2,8 +2,8 @@
 #' @description Predicted values based on a \code{dlim} object.
 #' @seealso \link[dlim]{dlim}
 #' @export
-#' @import splines
-#' @import dlnm
+#' @importFrom splines
+#' @importFrom dlnm
 #' @param object an object of class "\code{dlim}" 
 #' @param newdata a vector of new modifier values for prediction (class "\code{numeric}")
 #' @param type Type of prediction. "DLF" for the estimated distributed lag functions, "CE" for cumulative effects, "response" for fitted values, or any combination of these in a vector (class "\code{character}")

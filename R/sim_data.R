@@ -1,7 +1,7 @@
 #' Simulate Data
 #' @description Simulate data to use with the \pkg{dlim} package. There are different effect modification scenarios to choose for simulation.
 #' @export
-#' @import tsModel
+#' @importFrom tsModel
 #' @param x a time series vector of length \code{n} or matrix of lagged exposures for \code{n} individuals (class "\code{numeric}", "\code{matrix}")
 #' @param L a vector of length 1 containing the number of lag terms. This is required if \code{x} is vector, and is not used if \code{x} is a matrix (class "\code{numeric}")
 #' @param modifiers vector of length \code{n} containing modifying values (class "\code{numeric}")

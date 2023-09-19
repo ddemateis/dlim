@@ -1,9 +1,9 @@
 #' Plot Cumulative Effects
 #' @description Plot estimated cumulative effects from a DLIM object, can also compare estimated cumulative effects between a DLM and DLIM
 #' @export
-#' @import ggplot2
-#' @import reshape2
-#' @import viridis
+#' @importFrom ggplot2
+#' @importFrom reshape2
+#' @importFrom viridis
 #' @param new_modifiers a vector of new modifier values for prediction (class "\code{numeric}")
 #' @param mod_fit DLIM model object (class "\code{dlim}")
 #' @param mod_name modifier name that follows variable name nomenclature (class "\code{character}")

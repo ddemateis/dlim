@@ -1,9 +1,9 @@
 #' Fit DLIM
 #' @description Fit distributed lag interaction model
 #' @export
-#' @import mgcv
-#' @import dlnm
-#' @import splines
+#' @importFrom mgcv
+#' @importFrom dlnm
+#' @importFrom splines
 #' @param y vector of response values (class "\code{numeric}")
 #' @param x matrix of exposure history (columns) for individuals (rows) (class "\code{matrix}")
 #' @param modifiers vector of modifying values (class "\code{numeric}")

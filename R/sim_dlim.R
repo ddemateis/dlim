@@ -2,8 +2,8 @@
 #' @description Fit DLIM for simulation
 #' @seealso \link[dlim]{dlim}
 #' @export
-#' @import mgcv
-#' @import dlnm
+#' @importFrom mgcv
+#' @importFrom dlnm
 #' @param data output from \code{sim_data}
 #' @param df_m degrees of freedom for modifiers
 #' @param df_l degrees of freedom for lags
