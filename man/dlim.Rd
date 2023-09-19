@@ -12,8 +12,12 @@ dlim(
   df_m,
   df_l,
   penalize = T,
+  pen_fn = "ps",
+  mod_args = NULL,
+  lag_args = NULL,
   fit_fn = "gam",
   model_type = "standard",
+  ID = NULL,
   ...
 )
 }
@@ -32,9 +36,17 @@ dlim(
 
 \item{penalize}{\code{TRUE} to penalize model (class "\code{logical}")}
 
+\item{pen_fn}{if penalizing, can specify "ps" for penalized B-splines or "cr" for cubic regression splines with penalties on second derivatives}
+
+\item{mod_args}{a list of additional arguments for the spline function (must be named by argument)}
+
+\item{lag_args}{a list of additional arguments for the spline function (must be named by argument)}
+
 \item{fit_fn}{specify "gam" to use the \code{gam} function for data sets that are not very large, and specify "bam" to use the \code{bam} function for data sets that are very large. Default will fit using \code{gam}. (class "\code{character}")}
 
 \item{model_type}{"linear" for a DLIM with linear interaction, "quadratic" for a DLIM with quadratic interaction, "standard" for a DLIM with splines (class "\code{character}")}
+
+\item{ID}{group identifier for random intercept}
 
 \item{...}{Other arguments to pass to model fitting function}
 }

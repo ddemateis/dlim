@@ -1,8 +1,9 @@
 #' Plot Distributed Lag Function
 #' @description Plot estimated distributed lag function values from a DLIM object, can also compare those of a DLM
 #' @export
-#' @importFrom ggplot2
-#' @importFrom viridis
+#' @import ggplot2 
+#' @import viridis
+#' @import dlnm 
 #' @param new_modifiers a vector of new modifier values for prediction (class "\code{numeric}")
 #' @param mod_fit DLIM model object (class "\code{dlim}")
 #' @param dlm_fit a list containing a \code{crossbasis} object from the \pkg{dlnm} package as the first element and a DLM model object as the second element (class "\code{list}")
@@ -12,8 +13,6 @@
 #' @return This function returns a ggplot for cumulative effects, including for a DLM if specified
 
 plot_cumulative <- function(new_modifiers, mod_fit, dlm_fit=NULL, mod_name = NULL, mod_trans = NULL, link_trans = NULL){
-  library(ggplot2)
-  library(viridis)
 
   #predict DLIM
   model_pred <- predict(object=mod_fit, newdata = new_modifiers, type="CE")

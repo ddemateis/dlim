@@ -9,6 +9,9 @@ sim_dlim(
   df_m,
   df_l,
   penalize = T,
+  pen_fn = "ps",
+  mod_args = NULL,
+  lag_args = NULL,
   fit_dlm = F,
   model_type = "standard",
   ...
@@ -22,6 +25,12 @@ sim_dlim(
 \item{df_l}{degrees of freedom for lags}
 
 \item{penalize}{True to penalize model}
+
+\item{pen_fn}{if penalizing, can specify "ps" for penalized B-splines or "cr" for cubic regression splines with penalties on second derivatives}
+
+\item{mod_args}{a list of additional arguments for the spline function (must be named by argument)}
+
+\item{lag_args}{a list of additional arguments for the spline function (must be named by argument)}
 
 \item{fit_dlm}{True to additionally fit dlm for comparison}
 

@@ -20,9 +20,9 @@ cross_basis(
 
 \item{L}{a numeric vector of length 1 containing the number of lag terms. This is required if \code{x} is vector, and is not used if \code{x} is a matrix.}
 
-\item{argmod}{a list: $fun is the spline function for the modifier, $df is the degrees of freedom, $sp is optional smoothing parameter}
+\item{argmod}{a list: $fun is the spline function for the modifier ("ps" or "cr" to penalize), $arg is a list of arguments for the spline function (must be named by argument), $df is the degrees of freedom, $sp is optional smoothing parameter}
 
-\item{arglag}{a list: $fun is the spline function for the lag, $df is the degrees of freedom, $sp is optional smoothing parameter}
+\item{arglag}{a list: $fun is the spline function for the lag ("ps" or "cr" to penalize), $arg is a list of arguments for the spline function (must be named by argument), $df is the degrees of freedom, $sp is optional smoothing parameter}
 
 \item{model_type}{"linear" for a DLIM with linear interaction, "quadratic" for a DLIM with quadratic interaction, "standard" for a DLIM with splines}
 }

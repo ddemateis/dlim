@@ -2,8 +2,8 @@
 #' @description Predicted values based on a \code{dlim} object.
 #' @seealso \link[dlim]{dlim}
 #' @export
-#' @importFrom splines
-#' @importFrom dlnm
+#' @import splines 
+#' @import dlnm
 #' @param object an object of class "\code{dlim}" 
 #' @param newdata a vector of new modifier values for prediction (class "\code{numeric}")
 #' @param type Type of prediction. "DLF" for the estimated distributed lag functions, "CE" for cumulative effects, "response" for fitted values, or any combination of these in a vector (class "\code{character}")
@@ -39,6 +39,8 @@ predict.dlim <- function(object, newdata=NULL, type=c("DLF","CE", "response"), c
   if(attr(object,"model_type")=="standard"){
     if(class(cb$B_mod)[1]=="ps"){
       B_mod <- ps(modifiers, knots=attr(cb$B_mod,"knots"),intercept = T)#mxdf_m
+    }else if(class(cb$B_mod)[1]=="cr"){
+      B_mod <- cr(modifiers, knots=attr(cb$B_mod,"knots"),intercept = T)#mxdf_m
     }else{
       B_mod <- predict(cb$B_mod,modifiers) #mxdf_m
     }
@@ -48,9 +50,14 @@ predict.dlim <- function(object, newdata=NULL, type=c("DLF","CE", "response"), c
     B_mod <- cbind(rep(1,m), modifiers, modifiers^2)
   }
 
-
-  idx <- grep("CB",names(fit$coefficients))#includes only cross-basis elements
-  coef <- fit$coefficients[idx]
+  if(class(coef(fit))=="coef.mer"){
+    coefs <- coef(fit)[[1]]
+  }
+  else{
+    coefs <- coef(fit)
+  }
+  idx <- grep("CB",names(coefs))#includes only cross-basis elements
+  coef <- matrix(coefs[idx],ncol=1)
 
   #estimate cumulative effects
   if("CE" %in% type){

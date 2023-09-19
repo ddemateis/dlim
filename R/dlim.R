@@ -1,9 +1,8 @@
 #' Fit DLIM
 #' @description Fit distributed lag interaction model
 #' @export
-#' @importFrom mgcv
-#' @importFrom dlnm
-#' @importFrom splines
+#' @import mgcv
+#' @import lme4
 #' @param y vector of response values (class "\code{numeric}")
 #' @param x matrix of exposure history (columns) for individuals (rows) (class "\code{matrix}")
 #' @param modifiers vector of modifying values (class "\code{numeric}")
@@ -11,8 +10,12 @@
 #' @param df_m degrees of freedom for modifier basis (class "\code{numeric}")
 #' @param df_l degrees of freedom for exposure time basis (class "\code{numeric}")
 #' @param penalize \code{TRUE} to penalize model (class "\code{logical}")
+#' @param pen_fn if penalizing, can specify "ps" for penalized B-splines or "cr" for cubic regression splines with penalties on second derivatives
+#' @param mod_args a list of additional arguments for the spline function (must be named by argument)
+#' @param lag_args a list of additional arguments for the spline function (must be named by argument)
 #' @param fit_fn specify "gam" to use the \code{gam} function for data sets that are not very large, and specify "bam" to use the \code{bam} function for data sets that are very large. Default will fit using \code{gam}. (class "\code{character}")
 #' @param model_type "linear" for a DLIM with linear interaction, "quadratic" for a DLIM with quadratic interaction, "standard" for a DLIM with splines (class "\code{character}")
+#' @param ID group identifier for random intercept 
 #' @param ... Other arguments to pass to model fitting function
 #' @return This function returns a list that is an object of class "\code{dlim}" with the following components
 #' \item{cb}{cross-basis (class "\code{matrix}")}
@@ -20,7 +23,7 @@
 #' \item{modifiers}{modifying values (class "\code{numeric}")}
 #' \item{call}{model call}
 
-dlim <- function(y, x, modifiers, z=NULL, df_m, df_l, penalize=T, fit_fn="gam", model_type="standard", ...){
+dlim <- function(y, x, modifiers, z=NULL, df_m, df_l, penalize=T, pen_fn = "ps", mod_args=NULL, lag_args=NULL, fit_fn="gam", model_type="standard", ID=NULL, ...){
 
   #set up design matrix for covariates and/or modifiers
   modifiers <- matrix(modifiers, ncol=1)
@@ -32,9 +35,9 @@ dlim <- function(y, x, modifiers, z=NULL, df_m, df_l, penalize=T, fit_fn="gam", 
 
   #cross-basis
   if(penalize){
-    cb <- cross_basis(x=x,M=modifiers,argmod=list(fun="ps",df=df_m),arglag=list(fun="ps",df=df_l), model_type = model_type)
+    cb <- cross_basis(x=x,M=modifiers,argmod=list(fun=pen_fn,df=df_m,arg=mod_args),arglag=list(fun=pen_fn,df=df_l,arg=lag_args), model_type = model_type)
   }else{
-    cb <- cross_basis(x=x,M=modifiers,argmod=list(fun="ns",df=df_m),arglag=list(fun="ns",df=df_l), model_type = model_type)
+    cb <- cross_basis(x=x,M=modifiers,argmod=list(fun="ns",df=df_m,arg=mod_args),arglag=list(fun="ns",df=df_l,arg=lag_args), model_type = model_type)
   }
 
   #fit model
@@ -43,7 +46,13 @@ dlim <- function(y, x, modifiers, z=NULL, df_m, df_l, penalize=T, fit_fn="gam", 
   if(penalize){
     model <- do.call(fit_fn,list(formula=y~0+CB+Z, paraPen = list(CB = cb$Slist), ...))
   }else{
-    model <- do.call(fit_fn,list(formula=y~0+CB+Z, ...))
+    if(!is.null(ID)){
+      mod_df <- data.frame(y, CB=CB, Z=Z)
+      colnames(mod_df) <- gsub('[^[:alnum:] ]', '', colnames(mod_df))
+      model <- lmer(y~0+.+(1|ID), data = mod_df, ...)
+    }else{
+      model <- do.call(fit_fn,list(formula=y~0+CB+Z, ...))
+    }
   }
 
   results <- list("cb" = cb, "fit" = model, "modifiers" = modifiers, call = match.call)

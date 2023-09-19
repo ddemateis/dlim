@@ -1,9 +1,10 @@
 #' Plot Cumulative Effects
 #' @description Plot estimated cumulative effects from a DLIM object, can also compare estimated cumulative effects between a DLM and DLIM
 #' @export
-#' @importFrom ggplot2
-#' @importFrom reshape2
-#' @importFrom viridis
+#' @import ggplot2 
+#' @import reshape2 
+#' @import viridis 
+#' @import dlnm 
 #' @param new_modifiers a vector of new modifier values for prediction (class "\code{numeric}")
 #' @param mod_fit DLIM model object (class "\code{dlim}")
 #' @param mod_name modifier name that follows variable name nomenclature (class "\code{character}")
@@ -15,9 +16,6 @@
 #' @return This function returns a ggplot for point-wise effects isolated by either time points or modifier, including a DLM if specified
 
 plot_DLF <- function(new_modifiers, mod_fit, mod_name, dlm_fit=NULL, plot_by, time_pts=NULL, mod_trans = NULL, link_trans = NULL){
-  library(ggplot2)
-  library(reshape2)
-  library(viridis)
 
   #predict DLIM
   model_pred <- predict(object=mod_fit, newdata = new_modifiers, type="DLF")

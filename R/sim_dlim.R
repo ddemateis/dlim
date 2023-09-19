@@ -2,12 +2,15 @@
 #' @description Fit DLIM for simulation
 #' @seealso \link[dlim]{dlim}
 #' @export
-#' @importFrom mgcv
-#' @importFrom dlnm
+#' @import mgcv
+#' @import dlnm 
 #' @param data output from \code{sim_data}
 #' @param df_m degrees of freedom for modifiers
 #' @param df_l degrees of freedom for lags
 #' @param penalize True to penalize model
+#' @param pen_fn if penalizing, can specify "ps" for penalized B-splines or "cr" for cubic regression splines with penalties on second derivatives
+#' @param mod_args a list of additional arguments for the spline function (must be named by argument)
+#' @param lag_args a list of additional arguments for the spline function (must be named by argument)
 #' @param fit_dlm True to additionally fit dlm for comparison
 #' @param model_type "linear" for a DLIM with linear interaction, "quadratic" for a DLIM with quadratic interaction, "standard" for a DLIM with splines
 #' @param ... arguments to pass to model fitting function
@@ -20,9 +23,9 @@
 #' \item{modifiers}{\code{modifiers} from \code{numeric}}
 #' \item{data}{\code{data} (class "\code{list}")}
 
-sim_dlim <- function(data, df_m, df_l, penalize=T, fit_dlm=F, model_type="standard",...){
+sim_dlim <- function(data, df_m, df_l, penalize=T, pen_fn = "ps", mod_args=NULL, lag_args=NULL, fit_dlm=F, model_type="standard",...){
 
-
+  #fit DLIM
   model <- dlim(y = data$y,
                 x = data$x,
                 modifiers = data$modifiers,
@@ -31,8 +34,11 @@ sim_dlim <- function(data, df_m, df_l, penalize=T, fit_dlm=F, model_type="standa
                 df_l = df_l,
                 penalize=penalize,
                 model_type=model_type,
+                mod_args = mod_args,
+                lag_args = lag_args,
                 ...)
 
+  #fit DLM
   if(fit_dlm){
     #set up
     modifiers <- matrix(data$modifiers, ncol=1)
@@ -45,7 +51,7 @@ sim_dlim <- function(data, df_m, df_l, penalize=T, fit_dlm=F, model_type="standa
 
     #cross-basis
     if(penalize){
-      cb_dlm <- crossbasis(x=data$x,argvar=list(fun="lin"),arglag = list(fun="ps",df=df_l))
+      cb_dlm <- crossbasis(x=data$x,argvar=list(fun="lin"),arglag = list(fun=pen_fn,df=df_l))
     }else{
       cb_dlm <- crossbasis(x=data$x,argvar=list(fun="lin"),arglag = list(fun="ns",df=df_l))
     }
@@ -58,23 +64,6 @@ sim_dlim <- function(data, df_m, df_l, penalize=T, fit_dlm=F, model_type="standa
     }else{
       model_dlm <- do.call("gam",list(formula=y~0+cb_dlm+Z))
     }
-
-    # if(penalize){
-    #   penalty <- cbPen(cb_dlm)
-    #   if(!is.null(data$Z)){
-    #     model_dlm <- gam(data$y~cb_dlm+data$Z,paraPen = list(cb_dlm = penalty), method = "REML")
-    #   }else{
-    #     model_dlm <- gam(data$y~cb_dlm,paraPen = list(cb_dlm = penalty), method = "REML")
-    #   }
-    # }else{
-    #   if(!is.null(data$Z)){
-    #     model_dlm <- gam(data$y~cb_dlm+data$Z)
-    #   }else{
-    #     model_dlm <- gam(data$y~cb_dlm)
-    #   }
-    # }
-
-
   }
 
   if(fit_dlm){

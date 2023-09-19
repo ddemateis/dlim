@@ -2,14 +2,14 @@
 #' @description Creates cross-basis using natural splines for regression in DLIM
 #' @seealso \link[dlim]{dlim}
 #' @export
-#' @importFrom tsModel
-#' @importFrom splines
-#' @importFrom dlnm
+#' @import tsModel
+#' @import splines
+#' @import dlnm
 #' @param x a numeric time series vector of length n or matrix of lagged exposures (columns) for n individuals (rows)
 #' @param M vector of length n containing modifier values
 #' @param L a numeric vector of length 1 containing the number of lag terms. This is required if \code{x} is vector, and is not used if \code{x} is a matrix.
-#' @param argmod a list: $fun is the spline function for the modifier, $df is the degrees of freedom, $sp is optional smoothing parameter
-#' @param arglag a list: $fun is the spline function for the lag, $df is the degrees of freedom, $sp is optional smoothing parameter
+#' @param argmod a list: $fun is the spline function for the modifier ("ps" or "cr" to penalize), $arg is a list of arguments for the spline function (must be named by argument), $df is the degrees of freedom, $sp is optional smoothing parameter
+#' @param arglag a list: $fun is the spline function for the lag ("ps" or "cr" to penalize), $arg is a list of arguments for the spline function (must be named by argument), $df is the degrees of freedom, $sp is optional smoothing parameter
 #' @param model_type "linear" for a DLIM with linear interaction, "quadratic" for a DLIM with quadratic interaction, "standard" for a DLIM with splines
 #' @return This function returns a list of 5 or 6 elements:
 #' \item{cb }{cross-basis (matrix)}
@@ -33,7 +33,7 @@ cross_basis <- function(x,M,L=NULL,argmod=list(),arglag=list(), model_type="stan
   df_m <- argmod$df
 
   #Create bases
-  B_lag <- do.call(arglag$fun,list(0:L, df=df_l, intercept = T)) #L+1xdf_l
+  B_lag <- do.call(arglag$fun,list(0:L, df=df_l, intercept = T, arglag$arg)) #L+1xdf_l
   if(model_type=="linear"){
     B_mod <- cbind(rep(1,n), M)
     df_m <- 2 #number of col in B_mod
@@ -66,7 +66,7 @@ cross_basis <- function(x,M,L=NULL,argmod=list(),arglag=list(), model_type="stan
   }
 
   #create penalty argument for model if penalizing
-  if(argmod$fun=="ps" & arglag$fun=="ps"){
+  if((argmod$fun=="ps" | argmod$fun=="cr") & (arglag$fun=="ps" | argmod$fun=="cr")){
 
     #the S attribute is t(D_2) %*% D_2, where D_2 is second order difference matrix. See Gasparini 2017
 
