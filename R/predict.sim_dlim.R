@@ -6,7 +6,6 @@
 #' @param object an object of class "\code{dlim}" 
 #' @param newdata vector of modifiers for inference (class "\code{numeric}")
 #' @param type Type of prediction. "response" for predicted responses, "DLF" for the estimated distributed lag functions, "CE" for cumulative effects (class "\code{character}")
-#' @param CI \code{TRUE} to include confidence intervals, only for type="DLF" or type="CE" (class "\code{logical}")
 #' @return This function returns a list of 4 or 7 elements:
 #' \item{est_dlim}{\code{est_dlim} element from \code{predict.dlim} (class "\code{list}")}
 #' \item{cb}{cross-bais from \code{object} (class "\code{cross-basis}")}

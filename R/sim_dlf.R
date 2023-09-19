@@ -3,7 +3,7 @@
 #' @seealso \link[dlim]{sim_data}
 #' @export
 #' @param L Number of lags minus 1
-#' @param M Vector of modifiers
+#' @param modifiers Vector of modifiers
 #' @param type Effect modification simulation type: 1 is no modification, 2 is linear scale modification, 3 is non-linear shift modification, 4 is types 2 and 3 combined
 #' @return This function returns the true distributed lag function values (class "\code{numeric}")
 

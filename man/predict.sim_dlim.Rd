@@ -12,8 +12,6 @@
 \item{newdata}{vector of modifiers for inference (class "\code{numeric}")}
 
 \item{type}{Type of prediction. "response" for predicted responses, "DLF" for the estimated distributed lag functions, "CE" for cumulative effects (class "\code{character}")}
-
-\item{CI}{\code{TRUE} to include confidence intervals, only for type="DLF" or type="CE" (class "\code{logical}")}
 }
 \value{
 This function returns a list of 4 or 7 elements:
