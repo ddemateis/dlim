@@ -82,8 +82,12 @@ plot_DLF <- function(new_modifiers, mod_fit, mod_name, dlm_fit=NULL, plot_by, ti
 
 
   if(!is.null(dlm_fit)){ #DLM and DLIM
-
-    model_name <- paste0("DLIM(", mod_fit$cb$df_m,",",mod_fit$cb$df_l,")")
+    model_type <- attr(mod_fit, "model_type")
+    if(model_type=="standard"){
+      model_name <- paste0("DLIM(", mod_fit$cb$df_m,",",mod_fit$cb$df_l,")")
+    }else{
+      model_name <- paste0("DLIM-", model_type, "(", mod_fit$cb$df_l,")")
+    }
     df_time_pts <- data.frame(Modifiers = c(df$Modifiers,df$Modifiers),
                            Week = c(df$Week, df$Week),
                            Effect = c(df$Effect, rep(beta_by_lag[time_pts],each=m)),
@@ -112,8 +116,8 @@ plot_DLF <- function(new_modifiers, mod_fit, mod_name, dlm_fit=NULL, plot_by, ti
         xlab("Time") +
         ylab("Effect") +
         theme_classic() +
-        scale_fill_viridis(discrete=T) +
-        scale_color_viridis(discrete=T)
+        scale_fill_viridis(discrete=T, begin = 0.6, end = 0) +
+        scale_color_viridis(discrete=T, begin = 0.6, end = 0)
 
     }else if(plot_by=="time"){
 
@@ -125,8 +129,8 @@ plot_DLF <- function(new_modifiers, mod_fit, mod_name, dlm_fit=NULL, plot_by, ti
         xlab(ifelse(is.null(mod_name), "Modifier", mod_name)) +
         ylab("Effect") +
         theme_classic() +
-        scale_fill_viridis(discrete=T) +
-        scale_color_viridis(discrete=T)
+        scale_fill_viridis(discrete=T, begin = 0.6, end = 0) +
+        scale_color_viridis(discrete=T, begin = 0.6, end = 0)
 
     }
   }else{ #just DLIM
@@ -157,8 +161,8 @@ plot_DLF <- function(new_modifiers, mod_fit, mod_name, dlm_fit=NULL, plot_by, ti
         xlab("Time") +
         ylab("Effect") +
         theme_classic() +
-        scale_fill_viridis(discrete=T) +
-        scale_color_viridis(discrete=T)
+        scale_fill_viridis(discrete=T, begin = 0.6, end = 0) +
+        scale_color_viridis(discrete=T, begin = 0.6, end = 0)
     }else if(plot_by=="time"){
       ggplot(df_time_pts, aes(x=Modifiers,y=Effect)) +
         geom_hline(yintercept = 0)+
@@ -168,8 +172,8 @@ plot_DLF <- function(new_modifiers, mod_fit, mod_name, dlm_fit=NULL, plot_by, ti
         xlab(ifelse(is.null(mod_name), "Modifier", mod_name)) +
         ylab("Effect") +
         theme_classic() +
-        scale_fill_viridis(discrete=T) +
-        scale_color_viridis(discrete=T)
+        scale_fill_viridis(discrete=T, begin = 0.6, end = 0) +
+        scale_color_viridis(discrete=T, begin = 0.6, end = 0)
     }
   }
 

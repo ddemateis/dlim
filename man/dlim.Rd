@@ -46,7 +46,7 @@ dlim(
 
 \item{model_type}{"linear" for a DLIM with linear interaction, "quadratic" for a DLIM with quadratic interaction, "standard" for a DLIM with splines (class "\code{character}")}
 
-\item{ID}{group identifier for random intercept}
+\item{ID}{group identifier for random intercept, only supported for penalized models}
 
 \item{...}{Other arguments to pass to model fitting function}
 }

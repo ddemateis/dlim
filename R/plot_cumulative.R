@@ -62,7 +62,13 @@ plot_cumulative <- function(new_modifiers, mod_fit, dlm_fit=NULL, mod_name = NUL
       scale_fill_viridis(discrete=T) +
       scale_color_viridis(discrete=T)
   }else{
-    model_name <- paste0("DLIM(", mod_fit$cb$df_m,",",mod_fit$cb$df_l,")")
+    model_type <- attr(mod_fit, "model_type")
+    if(model_type=="standard"){
+      model_name <- paste0("DLIM(", mod_fit$cb$df_m,",",mod_fit$cb$df_l,")")
+    }else{
+      model_name <- paste0("DLIM-", model_type, "(", mod_fit$cb$df_l,")")
+    }
+    
     df_cumul <- data.frame(Modifiers = c(new_modifiers, new_modifiers),
                            Cumul_Effect = c(model_pred$est_dlim$betas_cumul, rep(cumul_betas, length(new_modifiers))),
                            LB = c(model_pred$est_dlim$cumul_LB, rep(cumul_lb, length(new_modifiers))),
@@ -86,8 +92,8 @@ plot_cumulative <- function(new_modifiers, mod_fit, dlm_fit=NULL, mod_name = NUL
       xlab(ifelse(is.null(mod_name), "Modifier", mod_name)) +
       ylab("Cumulative Effect") +
       theme_classic() +
-      scale_fill_viridis(discrete=T) +
-      scale_color_viridis(discrete=T)
+      scale_fill_viridis(discrete=T, begin = 0.6, end = 0) +
+      scale_color_viridis(discrete=T, begin = 0.6, end = 0)
 
   }
 

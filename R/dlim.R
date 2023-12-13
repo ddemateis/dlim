@@ -2,7 +2,6 @@
 #' @description Fit distributed lag interaction model
 #' @export
 #' @import mgcv
-#' @import lme4
 #' @param y vector of response values (class "\code{numeric}")
 #' @param x matrix of exposure history (columns) for individuals (rows) (class "\code{matrix}")
 #' @param modifiers vector of modifying values (class "\code{numeric}")
@@ -15,7 +14,7 @@
 #' @param lag_args a list of additional arguments for the spline function (must be named by argument)
 #' @param fit_fn specify "gam" to use the \code{gam} function for data sets that are not very large, and specify "bam" to use the \code{bam} function for data sets that are very large. Default will fit using \code{gam}. (class "\code{character}")
 #' @param model_type "linear" for a DLIM with linear interaction, "quadratic" for a DLIM with quadratic interaction, "standard" for a DLIM with splines (class "\code{character}")
-#' @param ID group identifier for random intercept 
+#' @param ID group identifier for random intercept, only supported for penalized models 
 #' @param ... Other arguments to pass to model fitting function
 #' @return This function returns a list that is an object of class "\code{dlim}" with the following components
 #' \item{cb}{cross-basis (class "\code{matrix}")}
@@ -44,18 +43,18 @@ dlim <- function(y, x, modifiers, z=NULL, df_m, df_l, penalize=T, pen_fn = "ps",
   CB <- cb$cb
   Z <- model.matrix(~ 0+.,model.frame(~ ., design1, na.action=na.pass)) #handles factor covariates and missing values
   if(penalize){
-    model <- do.call(fit_fn,list(formula=y~0+CB+Z, paraPen = list(CB = cb$Slist), ...))
-  }else{
     if(!is.null(ID)){
-      mod_df <- data.frame(y, CB=CB, Z=Z)
-      colnames(mod_df) <- gsub('[^[:alnum:] ]', '', colnames(mod_df))
-      model <- lmer(y~0+.+(1|ID), data = mod_df, ...)
+      ID <- as.factor(ID) #make sure ID is a factor
+      model <- do.call(fit_fn,list(formula=y~0+CB+Z+s(ID, bs="re"), paraPen = list(CB = cb$Slist), ...))
     }else{
-      model <- do.call(fit_fn,list(formula=y~0+CB+Z, ...))
+      model <- do.call(fit_fn,list(formula=y~0+CB+Z, paraPen = list(CB = cb$Slist), ...))
     }
+  }else{
+    #add stop error if ID is provided for un-penalized model
+    model <- do.call(fit_fn,list(formula=y~0+CB+Z, ...))
   }
 
-  results <- list("cb" = cb, "fit" = model, "modifiers" = modifiers, call = match.call)
+  results <- list("cb" = cb, "fit" = model, "modifiers" = modifiers, call = match.call())
 
   class(results) <- "dlim"
 
