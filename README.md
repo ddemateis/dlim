@@ -3,5 +3,7 @@ This repository contains the source files for the dlim package from "Penalized D
 To install this package, run the following lines of code in R.
 
 #install.packages("devtools") #run if devtools is not already installed
+
 library(devtools)
+
 install_github("ddemateis/dlim")
