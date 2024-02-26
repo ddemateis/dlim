@@ -8,11 +8,11 @@ sim_dlim(
   data,
   df_m,
   df_l,
-  penalize = T,
+  penalize = TRUE,
   pen_fn = "ps",
   mod_args = NULL,
   lag_args = NULL,
-  fit_dlm = F,
+  fit_dlm = FALSE,
   model_type = "standard",
   ...
 )
@@ -53,4 +53,8 @@ Fit DLIM for simulation
 }
 \seealso{
 \link[dlim]{dlim}
+
+\link[dlim]{sim_data}
+
+Type \code{'vignette(dlimOverview)'} for a detailed description.
 }

@@ -1,10 +1,22 @@
 Package: dlim
 Type: Package
+Date: 2024-02-25
 Title: Distributed Lag Interaction Model
 Version: 0.1.0
-Author: Ander Wilson, Kayleigh Keller, Danielle Demateis
-Maintainer: Danielle Demateis <Danielle.Demateis@colostate.edu>
-Description: Collection of functions for distributed lag interaction models.
+Authors@R: c(person(given = "Danielle",
+                    family = "Demateis",
+                    role = c("aut", "cre"),
+                    email = "Danielle.Demateis@colostate.edu",
+                    comment = c(ORCID = "0009-0003-0785-3962")),
+            person(given = "Kayleigh",
+                   family = "Keller",
+                   role = "aut",
+                   comment = c(ORCID = "0000-0002-9423-2704")),
+            person(given = "Ander",
+                   family = "Wilson",
+                   role = "aut",
+                   comment = c(ORCID = "0000-0003-4774-3883")))
+Description: Collection of functions for fitting and interpreting distributed lag interaction models (DLIM). A DLIM regresses a scalar outcome on repeated measures of exposure and allows for modification by a continuous variable. Includes a dlim() function for fitting, predict() function for inference, and plotting functions for visualization. Details on methodology are described in Demateis et al. (2024) <doi:10.1002/env.2843>.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -14,6 +26,7 @@ Imports:
   ggplot2,
   mgcv,
   reshape2,
+  rlang,
   splines,
   tsModel,
   viridis

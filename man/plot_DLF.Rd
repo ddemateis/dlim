@@ -38,3 +38,8 @@ This function returns a ggplot for point-wise effects isolated by either time po
 \description{
 Plot estimated cumulative effects from a DLIM object, can also compare estimated cumulative effects between a DLM and DLIM
 }
+\seealso{
+\link[dlim]{dlim}
+
+Type \code{'vignette(dlimOverview)'} for a detailed description.
+}

@@ -1,7 +1,14 @@
 #' Fit DLIM
 #' @description Fit distributed lag interaction model
+#' @seealso Type \code{'vignette(dlimOverview)'} for a detailed description.
+#' @seealso \link[dlim]{predict.dlim}
+#' @seealso \link[dlim]{plot_cumulative}
+#' @seealso \link[dlim]{plot_DLF}
 #' @export
 #' @import mgcv
+#' @importFrom stats model.matrix
+#' @importFrom stats model.frame
+#' @importFrom stats na.pass
 #' @param y vector of response values (class "\code{numeric}")
 #' @param x matrix of exposure history (columns) for individuals (rows) (class "\code{matrix}")
 #' @param modifiers vector of modifying values (class "\code{numeric}")
@@ -16,13 +23,14 @@
 #' @param model_type "linear" for a DLIM with linear interaction, "quadratic" for a DLIM with quadratic interaction, "standard" for a DLIM with splines (class "\code{character}")
 #' @param ID group identifier for random intercept, only supported for penalized models 
 #' @param ... Other arguments to pass to model fitting function
+#' @example inst/examples/ex_dlim.R
 #' @return This function returns a list that is an object of class "\code{dlim}" with the following components
 #' \item{cb}{cross-basis (class "\code{matrix}")}
 #' \item{fit}{model object (class "\code{lm}", "\code{glm}", "\code{gam}")}
 #' \item{modifiers}{modifying values (class "\code{numeric}")}
 #' \item{call}{model call}
 
-dlim <- function(y, x, modifiers, z=NULL, df_m, df_l, penalize=T, pen_fn = "ps", mod_args=NULL, lag_args=NULL, fit_fn="gam", model_type="standard", ID=NULL, ...){
+dlim <- function(y, x, modifiers, z=NULL, df_m, df_l, penalize=TRUE, pen_fn = "ps", mod_args=NULL, lag_args=NULL, fit_fn="gam", model_type="standard", ID=NULL, ...){
 
   #set up design matrix for covariates and/or modifiers
   modifiers <- matrix(modifiers, ncol=1)

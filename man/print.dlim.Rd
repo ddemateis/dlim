@@ -4,14 +4,19 @@
 \alias{print.dlim}
 \title{Print DLIM Information}
 \usage{
-\method{print}{dlim}(x)
+\method{print}{dlim}(x, ...)
 }
 \arguments{
 \item{x}{a \code{dlim} object}
+
+\item{...}{further arguments passed to or from other methods}
 }
 \value{
 This function returns information about an object of class \code{dlim}
 }
 \description{
 prints information about an object of class \code{dlim}
+}
+\seealso{
+Type \code{'vignette(dlimOverview)'} for a detailed description.
 }

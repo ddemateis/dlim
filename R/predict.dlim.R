@@ -1,6 +1,7 @@
 #' DLIM Predictions
 #' @description Predicted values based on a \code{dlim} object.
 #' @seealso \link[dlim]{dlim}
+#' @seealso Type \code{'vignette(dlimOverview)'} for a detailed description.
 #' @export
 #' @import splines 
 #' @import dlnm
@@ -8,14 +9,15 @@
 #' @param newdata a vector of new modifier values for prediction (class "\code{numeric}")
 #' @param type Type of prediction. "DLF" for the estimated distributed lag functions, "CE" for cumulative effects, "response" for fitted values, or any combination of these in a vector (class "\code{character}")
 #' @param conf.level The confidence level (class "\code{numeric}")
+#' @param ... additional arguments affecting the predictions produced
 #' @return This function returns a list of 3 elements:
 #' \item{est_dlim}{cumulative and/or point-wise estimates, standard errors, and confidence intervals (class "\code{list}")}
 #' \item{cb}{cross-basis object (class "\code{cross-basis}")}
 #' \item{model}{model object (class "\code{gam}")}
 
-predict.dlim <- function(object, newdata=NULL, type=c("DLF","CE", "response"), conf.level = 0.95){
+predict.dlim <- function(object, newdata=NULL, type=c("DLF","CE", "response"), conf.level = 0.95, ...){
 
-  if(class(object)!="dlim"){
+  if(!inherits(object, "dlim")){
     stop("Object not of class dlim")
   }
 
@@ -38,9 +40,9 @@ predict.dlim <- function(object, newdata=NULL, type=c("DLF","CE", "response"), c
   #reconstruct B_mod for given modifiers
   if(attr(object,"model_type")=="standard"){
     if(class(cb$B_mod)[1]=="ps"){
-      B_mod <- ps(modifiers, knots=attr(cb$B_mod,"knots"),intercept = T)#mxdf_m
+      B_mod <- ps(modifiers, knots=attr(cb$B_mod,"knots"),intercept = TRUE)#mxdf_m
     }else if(class(cb$B_mod)[1]=="cr"){
-      B_mod <- cr(modifiers, knots=attr(cb$B_mod,"knots"),intercept = T)#mxdf_m
+      B_mod <- cr(modifiers, knots=attr(cb$B_mod,"knots"),intercept = TRUE)#mxdf_m
     }else{
       B_mod <- predict(cb$B_mod,modifiers) #mxdf_m
     }
@@ -50,7 +52,7 @@ predict.dlim <- function(object, newdata=NULL, type=c("DLF","CE", "response"), c
     B_mod <- cbind(rep(1,m), modifiers, modifiers^2)
   }
 
-  if(class(coef(fit))=="coef.mer"){
+  if(inherits(coef(fit), "coef.mer")){
     coefs <- coef(fit)[[1]]
   }
   else{
@@ -105,7 +107,7 @@ predict.dlim <- function(object, newdata=NULL, type=c("DLF","CE", "response"), c
   }
 
   if("response" %in% type){
-    print("Returning fitted values is in progress.")
+    message("Returning fitted values is in progress.")
   }
 
   est_dlim$modifiers <- modifiers

@@ -1,10 +1,15 @@
 #' Plot Cumulative Effects
 #' @description Plot estimated cumulative effects from a DLIM object, can also compare estimated cumulative effects between a DLM and DLIM
+#' @seealso \link[dlim]{dlim}
+#' @seealso Type \code{'vignette(dlimOverview)'} for a detailed description.
 #' @export
 #' @import ggplot2 
 #' @import reshape2 
 #' @import viridis 
 #' @import dlnm 
+#' @importFrom stats qnorm
+#' @importFrom stats predict
+#' @importFrom rlang .data
 #' @param new_modifiers a vector of new modifier values for prediction (class "\code{numeric}")
 #' @param mod_fit DLIM model object (class "\code{dlim}")
 #' @param mod_name modifier name that follows variable name nomenclature (class "\code{character}")
@@ -25,7 +30,7 @@ plot_DLF <- function(new_modifiers, mod_fit, mod_name, dlm_fit=NULL, plot_by, ti
     cb_dlm <- dlm_fit[[1]]
     model_dlm <- dlm_fit[[2]]
     nlag <- attr(cb_dlm, "lag")[2]+1
-    dlm_crosspred <- crosspred(cb_dlm,model_dlm,at=rep(1,nlag),cen = F)
+    dlm_crosspred <- crosspred(cb_dlm,model_dlm,at=rep(1,nlag),cen = FALSE)
     beta_by_lag <- dlm_crosspred$matfit
     z <- qnorm(1 - (1 - 0.95)/2)
     dlm_lb <- dlm_crosspred$matfit - z * dlm_crosspred$matse #for some reason $matlow is gone
@@ -108,29 +113,29 @@ plot_DLF <- function(new_modifiers, mod_fit, mod_name, dlm_fit=NULL, plot_by, ti
     if(plot_by=="modifier"){
 
       colnames(df_time_pts)[which(colnames(df_time_pts)=="Modifiers")] <- mod_name
-      ggplot(df_time_pts, aes(x=Week,y=Effect, color=Model, fill = Model)) +
+      ggplot(df_time_pts, aes_string(x="Week",y="Effect", color="Model", fill = "Model")) +
         facet_wrap(mod_name, ncol = 3, labeller = label_both) +
         geom_hline(yintercept = ref_line)+
-        geom_ribbon(aes(ymin=LB, ymax=UB), alpha=0.2, color=NA)+
+        geom_ribbon(aes_string(ymin="LB", ymax="UB"), alpha=0.2, color=NA)+
         geom_line()+
         xlab("Time") +
         ylab("Effect") +
         theme_classic() +
-        scale_fill_viridis(discrete=T, begin = 0.6, end = 0) +
-        scale_color_viridis(discrete=T, begin = 0.6, end = 0)
+        scale_fill_viridis(discrete=TRUE, begin = 0.6, end = 0) +
+        scale_color_viridis(discrete=TRUE, begin = 0.6, end = 0)
 
     }else if(plot_by=="time"){
 
-      ggplot(df_time_pts, aes(x=Modifiers,y=Effect, color=Model, fill=Model)) +
-        facet_wrap(vars(Week), ncol = 3, labeller = label_both) +
+      ggplot(df_time_pts, aes_string(x="Modifiers",y="Effect", color="Model", fill="Model")) +
+        facet_wrap(vars(.data$Week), ncol = 3, labeller = label_both) +
         geom_hline(yintercept = ref_line) +
-        geom_ribbon(aes(ymin=LB, ymax=UB),alpha=0.2, color=F)+
+        geom_ribbon(aes_string(ymin="LB", ymax="UB"),alpha=0.2, color=FALSE)+
         geom_line()+
         xlab(ifelse(is.null(mod_name), "Modifier", mod_name)) +
         ylab("Effect") +
         theme_classic() +
-        scale_fill_viridis(discrete=T, begin = 0.6, end = 0) +
-        scale_color_viridis(discrete=T, begin = 0.6, end = 0)
+        scale_fill_viridis(discrete=TRUE, begin = 0.6, end = 0) +
+        scale_color_viridis(discrete=TRUE, begin = 0.6, end = 0)
 
     }
   }else{ #just DLIM
@@ -153,27 +158,27 @@ plot_DLF <- function(new_modifiers, mod_fit, mod_name, dlm_fit=NULL, plot_by, ti
 
     if(plot_by=="modifier"){
       colnames(df_time_pts)[which(colnames(df_time_pts)=="Modifiers")] <- mod_name
-      ggplot(df_time_pts, aes(x=Week,y=Effect)) +
+      ggplot(df_time_pts, aes_string(x="Week",y="Effect")) +
         geom_hline(yintercept = ref_line)+
-        geom_ribbon(aes(ymin=LB, ymax=UB), alpha=0.5, color=F)+
+        geom_ribbon(aes_string(ymin="LB", ymax="UB"), alpha=0.5, color=FALSE)+
         geom_line()+
         facet_wrap(mod_name, ncol = 3, labeller = label_both) +
         xlab("Time") +
         ylab("Effect") +
         theme_classic() +
-        scale_fill_viridis(discrete=T, begin = 0.6, end = 0) +
-        scale_color_viridis(discrete=T, begin = 0.6, end = 0)
+        scale_fill_viridis(discrete=TRUE, begin = 0.6, end = 0) +
+        scale_color_viridis(discrete=TRUE, begin = 0.6, end = 0)
     }else if(plot_by=="time"){
-      ggplot(df_time_pts, aes(x=Modifiers,y=Effect)) +
+      ggplot(df_time_pts, aes_string(x="Modifiers",y="Effect")) +
         geom_hline(yintercept = 0)+
-        geom_ribbon(aes(ymin=LB, ymax=UB),alpha=0.5, color=F)+
+        geom_ribbon(aes_string(ymin="LB", ymax="UB"),alpha=0.5, color=FALSE)+
         geom_line()+
-        facet_wrap(vars(Week), ncol = 3, labeller = label_both) +
+        facet_wrap(vars(.data$Week), ncol = 3, labeller = label_both) +
         xlab(ifelse(is.null(mod_name), "Modifier", mod_name)) +
         ylab("Effect") +
         theme_classic() +
-        scale_fill_viridis(discrete=T, begin = 0.6, end = 0) +
-        scale_color_viridis(discrete=T, begin = 0.6, end = 0)
+        scale_fill_viridis(discrete=TRUE, begin = 0.6, end = 0) +
+        scale_color_viridis(discrete=TRUE, begin = 0.6, end = 0)
     }
   }
 

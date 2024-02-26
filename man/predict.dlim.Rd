@@ -8,7 +8,8 @@
   object,
   newdata = NULL,
   type = c("DLF", "CE", "response"),
-  conf.level = 0.95
+  conf.level = 0.95,
+  ...
 )
 }
 \arguments{
@@ -19,6 +20,8 @@
 \item{type}{Type of prediction. "DLF" for the estimated distributed lag functions, "CE" for cumulative effects, "response" for fitted values, or any combination of these in a vector (class "\code{character}")}
 
 \item{conf.level}{The confidence level (class "\code{numeric}")}
+
+\item{...}{additional arguments affecting the predictions produced}
 }
 \value{
 This function returns a list of 3 elements:
@@ -31,4 +34,6 @@ Predicted values based on a \code{dlim} object.
 }
 \seealso{
 \link[dlim]{dlim}
+
+Type \code{'vignette(dlimOverview)'} for a detailed description.
 }

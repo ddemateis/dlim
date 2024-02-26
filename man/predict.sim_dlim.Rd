@@ -4,7 +4,7 @@
 \alias{predict.sim_dlim}
 \title{Simulated DLIM Predictions}
 \usage{
-\method{predict}{sim_dlim}(object, newdata = NULL, type = c("DLF", "CE", "response"))
+\method{predict}{sim_dlim}(object, newdata = NULL, type = c("DLF", "CE", "response"), ...)
 }
 \arguments{
 \item{object}{an object of class "\code{dlim}"}
@@ -12,6 +12,8 @@
 \item{newdata}{vector of modifiers for inference (class "\code{numeric}")}
 
 \item{type}{Type of prediction. "response" for predicted responses, "DLF" for the estimated distributed lag functions, "CE" for cumulative effects (class "\code{character}")}
+
+\item{...}{additional arguments affecting the predictions produced}
 }
 \value{
 This function returns a list of 4 or 7 elements:
@@ -28,4 +30,6 @@ This function estimates cumulative and non-cumulative lag/modifier coefficients 
 }
 \seealso{
 \link[dlim]{predict.dlim}
+
+Type \code{'vignette(dlimOverview)'} for a detailed description.
 }

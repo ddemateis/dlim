@@ -32,3 +32,8 @@ This function returns a ggplot for cumulative effects, including for a DLM if sp
 \description{
 Plot estimated distributed lag function values from a DLIM object, can also compare those of a DLM
 }
+\seealso{
+\link[dlim]{dlim}
+
+Type \code{'vignette(dlimOverview)'} for a detailed description.
+}

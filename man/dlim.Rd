@@ -11,7 +11,7 @@ dlim(
   z = NULL,
   df_m,
   df_l,
-  penalize = T,
+  penalize = TRUE,
   pen_fn = "ps",
   mod_args = NULL,
   lag_args = NULL,
@@ -59,4 +59,27 @@ This function returns a list that is an object of class "\code{dlim}" with the f
 }
 \description{
 Fit distributed lag interaction model
+}
+\examples{
+library(dlim)
+data("ex_data")
+dlim_fit <- dlim(y = ex_data$y, 
+                 x = ex_data$exposure, 
+                 modifier = ex_data$modifier, 
+                 z = ex_data$z, 
+                 df_m = 10, 
+                 df_l = 10, 
+                 method = "REML")
+dlim_pred <- predict(dlim_fit, 
+                     newdata = 0.5, 
+                     type="CE")
+}
+\seealso{
+Type \code{'vignette(dlimOverview)'} for a detailed description.
+
+\link[dlim]{predict.dlim}
+
+\link[dlim]{plot_cumulative}
+
+\link[dlim]{plot_DLF}
 }

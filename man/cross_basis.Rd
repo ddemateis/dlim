@@ -41,4 +41,6 @@ Creates cross-basis using natural splines for regression in DLIM
 }
 \seealso{
 \link[dlim]{dlim}
+
+Type \code{'vignette(dlimOverview)'} for a detailed description.
 }

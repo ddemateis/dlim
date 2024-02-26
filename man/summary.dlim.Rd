@@ -4,14 +4,19 @@
 \alias{summary.dlim}
 \title{Summarizing DLIM}
 \usage{
-\method{summary}{dlim}(x)
+\method{summary}{dlim}(object, ...)
 }
 \arguments{
-\item{x}{a \code{dlim} object}
+\item{object}{a \code{dlim} object}
+
+\item{...}{additional arguments affecting the summary produced}
 }
 \value{
 This function returns a summary for an object of class \code{dlim}
 }
 \description{
 prints summary of object of class \code{dlim}
+}
+\seealso{
+Type \code{'vignette(dlimOverview)'} for a detailed description.
 }

@@ -1,5 +1,7 @@
 #' Plot Distributed Lag Function
 #' @description Plot estimated distributed lag function values from a DLIM object, can also compare those of a DLM
+#' @seealso \link[dlim]{dlim}
+#' @seealso Type \code{'vignette(dlimOverview)'} for a detailed description.
 #' @export
 #' @import ggplot2 
 #' @import viridis
@@ -22,7 +24,7 @@ plot_cumulative <- function(new_modifiers, mod_fit, dlm_fit=NULL, mod_name = NUL
     cb_dlm <- dlm_fit[[1]]
     model_dlm <- dlm_fit[[2]]
     nlag <- attr(cb_dlm, "lag")[2]+1
-    dlm_crosspred <- crosspred(cb_dlm,model_dlm,at=rep(1,nlag),cen = F)
+    dlm_crosspred <- crosspred(cb_dlm,model_dlm,at=rep(1,nlag),cen = FALSE)
     cumul_betas <- dlm_crosspred$allfit
     z <- qnorm(1 - (1 - 0.95)/2)
     cumul_lb <- dlm_crosspred$allfit - z * dlm_crosspred$allse #for some reason $alllow is gone
@@ -52,15 +54,15 @@ plot_cumulative <- function(new_modifiers, mod_fit, dlm_fit=NULL, mod_name = NUL
       df_cumul[,2:4] <- do.call(link_trans,list(df_cumul[,2:4]))
     }
 
-    ggplot(df_cumul, aes(x=Modifiers,y=Cumul_Effect)) +
+    ggplot(df_cumul, aes_string(x="Modifiers",y="Cumul_Effect")) +
       geom_hline(yintercept = 0) +
-      geom_ribbon(aes(ymin=LB, ymax=UB), alpha=0.5 , fill = "grey70")+
+      geom_ribbon(aes_string(ymin="LB", ymax="UB"), alpha=0.5 , fill = "grey70")+
       geom_line()+
       xlab(ifelse(is.null(mod_name), "Modifier", mod_name)) +
       ylab("Cumulative Effect") +
       theme_classic() +
-      scale_fill_viridis(discrete=T) +
-      scale_color_viridis(discrete=T)
+      scale_fill_viridis(discrete=TRUE) +
+      scale_color_viridis(discrete=TRUE)
   }else{
     model_type <- attr(mod_fit, "model_type")
     if(model_type=="standard"){
@@ -85,15 +87,15 @@ plot_cumulative <- function(new_modifiers, mod_fit, dlm_fit=NULL, mod_name = NUL
       df_cumul[,2:4] <- do.call(link_trans,list(df_cumul[,2:4]))
     }
 
-    ggplot(df_cumul, aes(x=Modifiers,y=Cumul_Effect, color=Model, fill=Model)) +
+    ggplot(df_cumul, aes_string(x="Modifiers",y="Cumul_Effect", color="Model", fill="Model")) +
       geom_hline(yintercept = ref_line) +
-      geom_ribbon(aes(ymin=LB, ymax=UB), alpha=0.2, color=NA)+
+      geom_ribbon(aes_string(ymin="LB", ymax="UB"), alpha=0.2, color=NA)+
       geom_line()+
       xlab(ifelse(is.null(mod_name), "Modifier", mod_name)) +
       ylab("Cumulative Effect") +
       theme_classic() +
-      scale_fill_viridis(discrete=T, begin = 0.6, end = 0) +
-      scale_color_viridis(discrete=T, begin = 0.6, end = 0)
+      scale_fill_viridis(discrete=TRUE, begin = 0.6, end = 0) +
+      scale_color_viridis(discrete=TRUE, begin = 0.6, end = 0)
 
   }
 

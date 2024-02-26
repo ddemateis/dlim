@@ -1,6 +1,8 @@
 #' Fit DLIM for simulation
 #' @description Fit DLIM for simulation
 #' @seealso \link[dlim]{dlim}
+#' @seealso \link[dlim]{sim_data}
+#' @seealso Type \code{'vignette(dlimOverview)'} for a detailed description.
 #' @export
 #' @import mgcv
 #' @import dlnm 
@@ -23,7 +25,7 @@
 #' \item{modifiers}{\code{modifiers} from \code{numeric}}
 #' \item{data}{\code{data} (class "\code{list}")}
 
-sim_dlim <- function(data, df_m, df_l, penalize=T, pen_fn = "ps", mod_args=NULL, lag_args=NULL, fit_dlm=F, model_type="standard",...){
+sim_dlim <- function(data, df_m, df_l, penalize=TRUE, pen_fn = "ps", mod_args=NULL, lag_args=NULL, fit_dlm=FALSE, model_type="standard",...){
 
   #fit DLIM
   model <- dlim(y = data$y,

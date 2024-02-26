@@ -1,6 +1,7 @@
 #' Build crossbasis
 #' @description Creates cross-basis using natural splines for regression in DLIM
 #' @seealso \link[dlim]{dlim}
+#' @seealso Type \code{'vignette(dlimOverview)'} for a detailed description.
 #' @export
 #' @import tsModel
 #' @import splines
@@ -33,7 +34,7 @@ cross_basis <- function(x,M,L=NULL,argmod=list(),arglag=list(), model_type="stan
   df_m <- argmod$df
 
   #Create bases
-  B_lag <- do.call(arglag$fun,c(list(0:L, df=df_l, intercept = T), arglag$arg)) #L+1xdf_l
+  B_lag <- do.call(arglag$fun,c(list(0:L, df=df_l, intercept = TRUE), arglag$arg)) #L+1xdf_l
   if(model_type=="linear"){
     B_mod <- cbind(rep(1,n), M)
     df_m <- 2 #number of col in B_mod
@@ -41,7 +42,7 @@ cross_basis <- function(x,M,L=NULL,argmod=list(),arglag=list(), model_type="stan
     B_mod <- cbind(rep(1,n), M, M^2)
     df_m <- 3 #number of col in B_mod
   }else if(model_type=="standard"){
-    B_mod <- do.call(argmod$fun,c(list(M,df=df_m,intercept = T), argmod$arg)) #nxdf_m
+    B_mod <- do.call(argmod$fun,c(list(M,df=df_m,intercept = TRUE), argmod$arg)) #nxdf_m
   }
 
 
