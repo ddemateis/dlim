@@ -10,7 +10,7 @@
     #
     meta <- packageDescription("dlim")
     attachmsg <- paste("This is dlim ",meta$Version,
-                       ". For details: help(dlim) and vignette('dlimOverview').",
+                       ". For details: help(`dlim-package`) and vignette('dlimOverview').",
                        sep="")
     packageStartupMessage(attachmsg, domain = NULL, appendLF = TRUE)
   }
