@@ -1,0 +1,160 @@
+---
+title: "Distributed Lag Interaction Model Overview"
+output: pdf_document
+vignette: >
+  %\VignetteIndexEntry{dlimOverview}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Preamble
+
+# Installation
+
+The latest version of this package on GitHub can be downloaded and installed by 
+
+`install_github("ddemateis/dlim")`
+
+or on CRAN by
+
+`install.packages("dlim")`
+
+Then the package can be loaded by
+
+
+```{r}
+library(dlim)
+```
+
+
+
+# Methodology and Applications
+
+See [Demateis et al. 2024](https://doi.org/10.1002/env.2843) for details on methodology and applications. 
+
+# Functions in the package
+
+## The function `dlim()`
+
+To fit a DLIM using this package, first use the `dlim()` function, which creates a cross-basis using the `cross_basis()` function and then fits a GAM using using the cross-basis. `dlim()` takes a vector of response values, `y`, a matrix of exposure history, `x`, the modifier variable, `modifier`, and a matrix of other covariates, `z`. Do not include the modifier in `z`, as `dlim()` will add the modifier to the covariate matrix later in the function. You will also need to specify the degrees of freedom for the modifier basis, `df_m`, and the exposure time basis, `df_l`. You can optionally specify whether to penalize, `penalize = T` or `penalize = F`, though the function will default to `penalize = T`. We recommend specifying `method = "REML"` if penalizing. If the data set is very large, you can set `fit_fn = "bam"` so `dlim()` uses `bam()` instead of `gam()` for model fitting. See `?bam` for more details.  
+
+## The function `predict()`
+
+After using the `dlim()` function to fit a DLIM, you can use `predict()` to make predictions with confidence intervals for any set of modifying values. `predict()` is an S3 method for objects of class `dlim` which takes an object of class `dlim`, `object`, and the type of prediction, `type = "DLF"` to predict the distributed lag function or point-wise effects for a set of modifier, `type = "CE"` to predict the cumulative effects for a set of modifiers, or `type = c("CE", "DLF")` to predict both the distributed lag function and cumulative effect. You can pass a new vector of modifier values to `newdata`. If left as `NULL`, then prediction will be on the original modifier values. The confidence level can be changed using `alpha`. 
+
+## The function `plot_cumulative()`
+
+After using the `dlim()` function to fit a DLIM, you can use the `plot_cumulative()` function to plot the cumulative effects and confidence regions for any set of modifying values. `plot_cumulative()` takes a vector of modifying values, `new_modifiers`, and an object of class `dlim`, `mod_fit`. Optionally, you can provide the name of the modifier for the plot axis label, `mod_name`, and a back-transformation function to `mod_trans` if the specified modifier values have been transformed. This function also have the ability to compare a DLM fit to a DLIM fit. If the `dlm_fit` argument is passed a list containing a `crossbasis` object from the `dlnm` package and a fitted DLM model object, then the plot will also include the estimated cumulative effects and confidence region for the same modifying values for the DLM. If the model family is not Gaussian, specify a transformation function using `link_trans`. 
+
+## The function `plot_DLF()`
+
+After using the `dlim()` function to fit a DLIM, you can use the `plot_DLF()` function to create a grid of plots for the estimated point-wise effects (i.e. estimated distributed lag function) and confidence regions for any set of modifying values. `plot_DLF()` takes a vector of modifying values, `new_modifiers`, an object of class `dlim`, `mod_fit`, and whether to create a grid of plots by modifier value, `plot_by = "modifier"`, or by particular time points, `plot_by = "time"`. If you are want each plot in the grid to be for a time point, you must pass `time_pts` a vector of time points. Optionally, you can provide the name of the modifier for the plot axis label, `mod_name`, and a back-transformation function if the specified modifier values have been transformed. This function also have the ability to compare a DLM fit to a DLIM fit. If the `dlm_fit` argument is passed a list containing a `crossbasis` object from the `dlnm` package and a fitted DLM model object, then the plot will also include the estimated cumulative effects and confidence region for the same modifying values for the DLM. If the model family is not Gaussian, specify a transformation function using `link_trans`. 
+
+## The function `model_comparison()`
+
+You can use the `model_comparison` function to compare models with and without interaction, or models of varying levels of interaction. See [Demateis et al. 2024](https://doi.org/10.1002/env.2843) for discussion. The `model_comparison` function takes a `dlim` object (must be fit with REML) through the `fit` argument. The fit object is the full model. Specify the null model, either `null = "DLM"` or `null = "linear"` are currently supported. `x` is the exposure matrix used to fit `fit`, `B` is the number of bootstrap samples, and `conf.level` is the confidence level with default 0.95. The function returns a decision to reject or fail to reject based on the confidence level. 
+
+# Example 
+
+Using the example data set in the package, fit a DLIM using the `dlim()` function. First load the data set:
+
+```{r}
+data("ex_data")
+str(ex_data)
+```
+
+This data set is a list containing the response (`$y`), the exposure history (`$exposure`), the modifier (`$modifier`), and covariates (`$z`). Now fit the DLIM using the `dlim` function:
+
+```{r}
+dlim_fit <- dlim(y = ex_data$y, 
+                 x = ex_data$exposure, 
+                 modifier = ex_data$modifier, 
+                 z = ex_data$z, 
+                 df_m = 10, 
+                 df_l = 10, 
+                 method = "REML")
+```
+
+Note specifying `method = "REML` along with penalization. We can quickly look at the object by printing it:
+
+```{r}
+dlim_fit
+```
+
+This tells us the GAM was fit using the Gaussian family and identity link function, there are 10 degrees of freedom for both bases, the number of exposure time points is 37, and the model was fit using penalization.
+
+To see predicted cumulative or point-wise effects, we can use the `predict()` function. Specify `type="CE"` to obtain cumulative effect estimates, `type="DLF"` to obtain point-wise effect estimates, or `type=c("CE","DLF")` to obtain both. The order does not matter. The following gives cumulative effect estimates for a modifier value of 0.5, along with upper and lower confidence intervals:
+
+```{r}
+dlim_pred <- predict(dlim_fit, 
+                     newdata = 0.5, 
+                     type="CE")
+data.frame(cumul_betas = c(dlim_pred$est_dlim$betas_cumul),
+           LB = c(dlim_pred$est_dlim$cumul_LB),
+           UB = c(dlim_pred$est_dlim$cumul_UB))
+```
+
+The following gives point-wise effect estimates for a modifier value of 0.5, along with upper and lower confidence intervals:
+
+```{r}
+dlim_pred <- predict(dlim_fit, 
+                     newdata = 0.5, 
+                     type="DLF")
+data.frame(betas = c(dlim_pred$est_dlim$betas),
+           LB = c(dlim_pred$est_dlim$LB),
+           UB = c(dlim_pred$est_dlim$UB))
+```
+
+We can also create plots for the cumulative effects and point-wise effects. The following plots the estimated cumulative effects over a grid of modifier values:
+
+```{r}
+plot_cumulative(new_modifiers = seq(0.1,0.9,0.1), 
+                mod_fit = dlim_fit, 
+                mod_name = "modifier")
+```
+
+
+There are two ways to look at estimated point-wise effects: by modifier or by time. To create a grid of estimated point-wise effect plots for a select number of time points, specify `plot_by = time` and provide select time points to `time_pts`. The following plots estimated point-wise effects across a grid of modifiers isolated for weeks 10, 20, and 30: 
+
+```{r}
+plot_DLF(new_modifiers = seq(0.1,0.9,0.1), 
+         mod_fit = dlim_fit, 
+         mod_name = "modifier", 
+         plot_by = "time", 
+         time_pts = c(10,20,30))
+```
+
+To create a grid of estimated point-wise effect plots for a select number of modifier values, specify `plot_by = modifier` and provide select modifier values to `new_modifiers`. The following plots estimated point-wise effects across all time points isolated for modifier values 0.25, 0.5, and 0.75: 
+
+```{r}
+plot_DLF(new_modifiers = c(0.25, 0.5, 0.75),
+         mod_fit = dlim_fit, 
+         mod_name = "modifier", 
+         plot_by = "modifier")
+```
+
+We can compare this model to a standard DLM using the `model_comparison` function. The full model is `dlim_fit` model object, and the null model by default is `"DLM"`. Then specify the exposure used to create `dlim_fit` and the number of bootstrap samples, `B = 5` (we recommend using at least 1000 bootstrap samples, but use 5 to illustrate quickly). The function returns the decision to reject or fail to reject the null model based on the default confidence level `conf.level` of 0.95. 
+
+```{r}
+model_comparison(fit = dlim_fit, 
+                 null = "DLM",
+                 x = exposure, 
+                 B = 5)
+```
+
+
+
+# Changes to package 
+
+# Acknowledgements
+
+# Bibliography
+
+Demateis, D., Keller, K. P., Rojas-Rueda, D., Kioumourtzoglou, M.-A., & Wilson, A. (2024). Penalized distributed lag interaction model: Air pollution, birth weight, and neighborhood vulnerability. Environmetrics, e2843. [https://doi.org/10.1002/env.2843](https://doi.org/10.1002/env.2843)
