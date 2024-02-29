@@ -75,7 +75,7 @@ dlim_pred <- predict(dlim_fit,
                      type="CE")
 }
 \seealso{
-Type \code{'vignette(dlimOverview)'} for a detailed description.
+Type \code{vignette('dlimOverview')} for a detailed description.
 
 \link[dlim]{predict.dlim}
 

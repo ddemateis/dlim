@@ -35,5 +35,5 @@ Plot estimated distributed lag function values from a DLIM object, can also comp
 \seealso{
 \link[dlim]{dlim}
 
-Type \code{'vignette(dlimOverview)'} for a detailed description.
+Type \code{vignette('dlimOverview')} for a detailed description.
 }

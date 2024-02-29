@@ -1,6 +1,6 @@
 #' Model Comparison
 #' @description Compare models to test for interaction 
-#' @seealso Type \code{'vignette(dlimOverview)'} for a detailed description.
+#' @seealso Type \code{vignette('dlimOverview')} for a detailed description.
 #' @seealso \link[dlim]{dlim}
 #' @export
 #' @import dlnm

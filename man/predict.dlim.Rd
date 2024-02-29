@@ -35,5 +35,5 @@ Predicted values based on a \code{dlim} object.
 \seealso{
 \link[dlim]{dlim}
 
-Type \code{'vignette(dlimOverview)'} for a detailed description.
+Type \code{vignette('dlimOverview')} for a detailed description.
 }

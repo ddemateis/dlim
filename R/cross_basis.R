@@ -1,7 +1,7 @@
 #' Build crossbasis
 #' @description Creates cross-basis using natural splines for regression in DLIM
 #' @seealso \link[dlim]{dlim}
-#' @seealso Type \code{'vignette(dlimOverview)'} for a detailed description.
+#' @seealso Type \code{vignette('dlimOverview')} for a detailed description.
 #' @export
 #' @import tsModel
 #' @import splines

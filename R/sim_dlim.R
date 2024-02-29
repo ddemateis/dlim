@@ -2,7 +2,7 @@
 #' @description Fit DLIM for simulation
 #' @seealso \link[dlim]{dlim}
 #' @seealso \link[dlim]{sim_data}
-#' @seealso Type \code{'vignette(dlimOverview)'} for a detailed description.
+#' @seealso Type \code{vignette('dlimOverview')} for a detailed description.
 #' @export
 #' @import mgcv
 #' @import dlnm 

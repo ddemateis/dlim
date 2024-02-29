@@ -31,5 +31,5 @@ This function estimates cumulative and non-cumulative lag/modifier coefficients 
 \seealso{
 \link[dlim]{predict.dlim}
 
-Type \code{'vignette(dlimOverview)'} for a detailed description.
+Type \code{vignette('dlimOverview')} for a detailed description.
 }

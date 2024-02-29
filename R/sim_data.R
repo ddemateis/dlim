@@ -1,7 +1,7 @@
 #' Simulate Data
 #' @description Simulate data to use with the \pkg{dlim} package. There are different effect modification scenarios to choose for simulation.
 #' @seealso \link[dlim]{sim_dlim}
-#' @seealso Type \code{'vignette(dlimOverview)'} for a detailed description.
+#' @seealso Type \code{vignette('dlimOverview')} for a detailed description.
 #' @export
 #' @import tsModel 
 #' @importFrom stats sd

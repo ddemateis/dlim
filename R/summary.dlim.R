@@ -1,6 +1,6 @@
 #' Summarizing DLIM
 #' @description prints summary of object of class \code{dlim}
-#' @seealso Type \code{'vignette(dlimOverview)'} for a detailed description.
+#' @seealso Type \code{vignette('dlimOverview')} for a detailed description.
 #' @export
 #' @param object a \code{dlim} object
 #' @param ... additional arguments affecting the summary produced

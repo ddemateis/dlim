@@ -56,5 +56,5 @@ Fit DLIM for simulation
 
 \link[dlim]{sim_data}
 
-Type \code{'vignette(dlimOverview)'} for a detailed description.
+Type \code{vignette('dlimOverview')} for a detailed description.
 }

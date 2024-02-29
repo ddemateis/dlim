@@ -1,7 +1,7 @@
 #' Simulate Distributed Lag Functions
 #' @description generate true distributed lag function values for a given type of simulation
 #' @seealso \link[dlim]{sim_data}
-#' @seealso Type \code{'vignette(dlimOverview)'} for a detailed description.
+#' @seealso Type \code{vignette('dlimOverview')} for a detailed description.
 #' @export
 #' @importFrom stats dnorm
 #' @param L Number of lags minus 1

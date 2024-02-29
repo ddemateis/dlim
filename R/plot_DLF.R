@@ -1,7 +1,7 @@
 #' Plot Cumulative Effects
 #' @description Plot estimated cumulative effects from a DLIM object, can also compare estimated cumulative effects between a DLM and DLIM
 #' @seealso \link[dlim]{dlim}
-#' @seealso Type \code{'vignette(dlimOverview)'} for a detailed description.
+#' @seealso Type \code{vignette('dlimOverview')} for a detailed description.
 #' @export
 #' @import ggplot2 
 #' @import reshape2 

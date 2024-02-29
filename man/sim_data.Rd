@@ -49,5 +49,5 @@ Simulate data to use with the \pkg{dlim} package. There are different effect mod
 \seealso{
 \link[dlim]{sim_dlim}
 
-Type \code{'vignette(dlimOverview)'} for a detailed description.
+Type \code{vignette('dlimOverview')} for a detailed description.
 }

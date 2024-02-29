@@ -24,7 +24,7 @@ The function returns a decision to either reject or fail to reject the null mode
 Compare models to test for interaction
 }
 \seealso{
-Type \code{'vignette(dlimOverview)'} for a detailed description.
+Type \code{vignette('dlimOverview')} for a detailed description.
 
 \link[dlim]{dlim}
 }

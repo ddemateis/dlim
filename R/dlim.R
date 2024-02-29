@@ -1,6 +1,6 @@
 #' Fit DLIM
 #' @description Fit distributed lag interaction model
-#' @seealso Type \code{'vignette(dlimOverview)'} for a detailed description.
+#' @seealso Type \code{vignette('dlimOverview')} for a detailed description.
 #' @seealso \link[dlim]{predict.dlim}
 #' @seealso \link[dlim]{plot_cumulative}
 #' @seealso \link[dlim]{plot_DLF}

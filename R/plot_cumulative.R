@@ -1,7 +1,7 @@
 #' Plot Distributed Lag Function
 #' @description Plot estimated distributed lag function values from a DLIM object, can also compare those of a DLM
 #' @seealso \link[dlim]{dlim}
-#' @seealso Type \code{'vignette(dlimOverview)'} for a detailed description.
+#' @seealso Type \code{vignette('dlimOverview')} for a detailed description.
 #' @export
 #' @import ggplot2 
 #' @import viridis

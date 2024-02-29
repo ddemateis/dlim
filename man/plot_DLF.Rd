@@ -41,5 +41,5 @@ Plot estimated cumulative effects from a DLIM object, can also compare estimated
 \seealso{
 \link[dlim]{dlim}
 
-Type \code{'vignette(dlimOverview)'} for a detailed description.
+Type \code{vignette('dlimOverview')} for a detailed description.
 }

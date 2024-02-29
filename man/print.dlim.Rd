@@ -18,5 +18,5 @@ This function returns information about an object of class \code{dlim}
 prints information about an object of class \code{dlim}
 }
 \seealso{
-Type \code{'vignette(dlimOverview)'} for a detailed description.
+Type \code{vignette('dlimOverview')} for a detailed description.
 }

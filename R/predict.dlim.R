@@ -1,7 +1,7 @@
 #' DLIM Predictions
 #' @description Predicted values based on a \code{dlim} object.
 #' @seealso \link[dlim]{dlim}
-#' @seealso Type \code{'vignette(dlimOverview)'} for a detailed description.
+#' @seealso Type \code{vignette('dlimOverview')} for a detailed description.
 #' @export
 #' @import splines 
 #' @import dlnm

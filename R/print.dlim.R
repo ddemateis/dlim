@@ -1,6 +1,6 @@
 #' Print DLIM Information
 #' @description prints information about an object of class \code{dlim}
-#' @seealso Type \code{'vignette(dlimOverview)'} for a detailed description.
+#' @seealso Type \code{vignette('dlimOverview')} for a detailed description.
 #' @export
 #' @param x a \code{dlim} object
 #' @param ... further arguments passed to or from other methods
