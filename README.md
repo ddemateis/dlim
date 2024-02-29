@@ -7,3 +7,5 @@ To install this package, run the following lines of code in R.
 library(devtools)
 
 install_github("ddemateis/dlim")
+
+This package is also available on CRAN. 
