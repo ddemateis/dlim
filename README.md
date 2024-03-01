@@ -2,10 +2,12 @@ This repository contains the source files for the dlim package from "Penalized D
 
 To install this package, run the following lines of code in R.
 
-#install.packages("devtools") #run if devtools is not already installed
+```r
+# from CRAN
+install.packages("dlim")
 
-library(devtools)
+# development from GitHub
+# install.packages("devtools") #run if devtools is not already installed
 
-install_github("ddemateis/dlim")
-
-This package is also available on CRAN. 
+devtools::install_github("ddemateis/dlim")
+```
