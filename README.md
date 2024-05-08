@@ -1,5 +1,9 @@
 # dlim
 
+[![CRAN status](https://www.r-pkg.org/badges/version/dlim)](https://CRAN.R-project.org/package=dlim)
+[![Downloads](https://cranlogs.r-pkg.org/badges/dlim)](https://cran.rstudio.com/package=dlim)
+
+
 ### Overview
 
 
