@@ -2,3 +2,25 @@ url: https://ddemateis.github.io/dlim/
 template:
   bootstrap: 5
 
+reference:
+  - title: Main functions
+    contents: 
+    - dlim
+    - predict.dlim
+    - predict.sim_dlim
+    - plot_DLF
+    - plot_cumulative
+    - model_comparison
+    - summary.dlim
+  - title: Data
+    contents: 
+    - exposure
+    - ex_data
+  - title: Helper functions
+    contents: 
+    - cross_basis
+    - print.dlim
+    - dlim-package
+    - sim_data
+    - sim_dlf
+    - sim_dlim
