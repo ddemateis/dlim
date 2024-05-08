@@ -1,5 +1,10 @@
 # dlim
 
+[![](https://www.r-pkg.org/badges/version/dlim)](https://cran.r-project.org/package=dlim)
+[![Build Status](https://travis-ci.com/jranke/mkin.svg?branch=main)](https://app.travis-ci.com/github/jranke/mkin)
+[![Downloads](https://cranlogs.r-pkg.org/badges/dlim)](https://cran.rstudio.com/package=dlim)
+
+
 ### Overview
 
 
