@@ -9,7 +9,7 @@ dlim(
   x,
   modifiers,
   z = NULL,
-  df_m,
+  df_m = NULL,
   df_l,
   penalize = TRUE,
   pen_fn = "ps",
@@ -30,7 +30,7 @@ dlim(
 
 \item{z}{matrix of covariates, not including the modifier (class "\code{matrix}")}
 
-\item{df_m}{degrees of freedom for modifier basis (class "\code{numeric}")}
+\item{df_m}{degrees of freedom for modifier basis. Cannot specify for linear modification (model_type = "linear") (class "\code{numeric}")}
 
 \item{df_l}{degrees of freedom for exposure time basis (class "\code{numeric}")}
 

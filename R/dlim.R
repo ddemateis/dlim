@@ -13,7 +13,7 @@
 #' @param x matrix of exposure history (columns) for individuals (rows) (class "\code{matrix}")
 #' @param modifiers vector of modifying values (class "\code{numeric}")
 #' @param z matrix of covariates, not including the modifier (class "\code{matrix}")
-#' @param df_m degrees of freedom for modifier basis (class "\code{numeric}")
+#' @param df_m degrees of freedom for modifier basis. Cannot specify for linear modification (model_type = "linear") (class "\code{numeric}")
 #' @param df_l degrees of freedom for exposure time basis (class "\code{numeric}")
 #' @param penalize \code{TRUE} to penalize model (class "\code{logical}")
 #' @param pen_fn if penalizing, can specify "ps" for penalized B-splines or "cr" for cubic regression splines with penalties on second derivatives
@@ -30,8 +30,12 @@
 #' \item{modifiers}{modifying values (class "\code{numeric}")}
 #' \item{call}{model call}
 
-dlim <- function(y, x, modifiers, z=NULL, df_m, df_l, penalize=TRUE, pen_fn = "ps", mod_args=NULL, lag_args=NULL, fit_fn="gam", model_type="standard", ID=NULL, ...){
+dlim <- function(y, x, modifiers, z=NULL, df_m=NULL, df_l, penalize=TRUE, pen_fn = "ps", mod_args=NULL, lag_args=NULL, fit_fn="gam", model_type="standard", ID=NULL, ...){
 
+  if(model_type == "standard" & is.null(df_m)){
+    stop("Please specify df_m argument, the number of basis functions for the modifier basis.")
+  }
+  
   #set up design matrix for covariates and/or modifiers
   modifiers <- matrix(modifiers, ncol=1)
   if(!is.null(z)){
