@@ -65,7 +65,7 @@ plot_cumulative <- function(new_modifiers, mod_fit, dlm_fit=NULL, mod_name = NUL
       scale_color_viridis(discrete=TRUE)
   }else{
     model_type <- attr(mod_fit, "model_type")
-    if(model_type=="standard"){
+    if(model_type=="nonlinear"){
       model_name <- paste0("DLIM(", mod_fit$cb$df_m,",",mod_fit$cb$df_l,")")
     }else{
       model_name <- paste0("DLIM-", model_type, "(", mod_fit$cb$df_l,")")

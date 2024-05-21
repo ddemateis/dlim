@@ -16,7 +16,7 @@ dlim(
   mod_args = NULL,
   lag_args = NULL,
   fit_fn = "gam",
-  model_type = "standard",
+  model_type = "nonlinear",
   ID = NULL,
   ...
 )
@@ -44,7 +44,7 @@ dlim(
 
 \item{fit_fn}{specify "gam" to use the \code{gam} function for data sets that are not very large, and specify "bam" to use the \code{bam} function for data sets that are very large. Default will fit using \code{gam}. (class "\code{character}")}
 
-\item{model_type}{"linear" for a DLIM with linear interaction, "quadratic" for a DLIM with quadratic interaction, "standard" for a DLIM with splines (class "\code{character}")}
+\item{model_type}{"linear" for a DLIM with linear interaction (linear modifier basis), "quadratic" for a DLIM with quadratic interaction (quadratic modifier basis), "nonlinear" for a DLIM with non-linear interaction (spline modifier basis)}
 
 \item{ID}{group identifier for random intercept, only supported for penalized models}
 
@@ -68,8 +68,7 @@ dlim_fit <- dlim(y = ex_data$y,
                  modifier = ex_data$modifier, 
                  z = ex_data$z, 
                  df_m = 10, 
-                 df_l = 10, 
-                 method = "REML")
+                 df_l = 10)
 dlim_pred <- predict(dlim_fit, 
                      newdata = 0.5, 
                      type="CE")

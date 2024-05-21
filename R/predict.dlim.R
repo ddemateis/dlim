@@ -38,7 +38,7 @@ predict.dlim <- function(object, newdata=NULL, type=c("DLF","CE", "response"), c
   est_dlim <- list()
 
   #reconstruct B_mod for given modifiers
-  if(attr(object,"model_type")=="standard"){
+  if(attr(object,"model_type")=="nonlinear"){
     if(class(cb$B_mod)[1]=="ps"){
       B_mod <- ps(modifiers, knots=attr(cb$B_mod,"knots"),intercept = TRUE)#mxdf_m
     }else if(class(cb$B_mod)[1]=="cr"){

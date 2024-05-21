@@ -8,14 +8,20 @@
 #' @importFrom stats rpois
 #' @importFrom stats logLik
 #' @importFrom stats quantile
+#' @importFrom lifecycle deprecate_warn
 #' @param fit dlim object (must be fit with REML)
-#' @param null "DLM", "linear" to specify the null model
+#' @param null specify the type of interaction in the null model, "none" for no interaction (standard DLM), "linear" for linear interaction (DLIM-linear), or "quadratic" for quadratic interaction
 #' @param x exposure
 #' @param B number of bootstrap samples
 #' @param conf.level The confidence level (class "\code{numeric}")
 #' @return The function returns a decision to either reject or fail to reject the null model
 
-model_comparison <- function(fit, null = "DLM", x, B, conf.level = 0.95){
+model_comparison <- function(fit, null = "none", x, B, conf.level = 0.95){
+  
+  if(null == "DLM"){
+    lifecycle::deprecate_warn("0.3.0", "null = 'DLM'", "null = 'none'")
+    null <- "none"
+  }
   
   #make sure family is supported
   family <- fit$fit$family$family
@@ -32,7 +38,6 @@ model_comparison <- function(fit, null = "DLM", x, B, conf.level = 0.95){
   #get info from dlim object
   df_l <- fit$cb$df_l
   df_m <- fit$cb$df_m
-  method <- fit$fit$method
   model_type <- attr(fit, "model_type")
   y <- fit$fit$model$y
   modifiers <- fit$fit$model$Z[,2]
@@ -43,7 +48,7 @@ model_comparison <- function(fit, null = "DLM", x, B, conf.level = 0.95){
   }
   
   #Step 1: fit initial null model
-  if(null=="DLM"){
+  if(null=="none"){
     cb_dlm <- crossbasis(x=x,
                          argvar=list(fun="lin"),
                          arglag = list(fun="ps",
@@ -64,7 +69,6 @@ model_comparison <- function(fit, null = "DLM", x, B, conf.level = 0.95){
                        df_m = df_m,
                        df_l = df_l,
                        penalize = TRUE,
-                       method = method,
                        model_type = null,
                        family = family)
     initial_null <- null_model$fit
@@ -83,7 +87,7 @@ model_comparison <- function(fit, null = "DLM", x, B, conf.level = 0.95){
     }
     
     #Step 3: Calculate bootstrap likelihood ratio using sample in step 2
-    if(null=="DLM"){
+    if(null=="none"){
       null_model <- gam(boot_y~cb_dlm+design2,
                         paraPen = list(cb_dlm = penalty), 
                         method = method)
@@ -95,7 +99,6 @@ model_comparison <- function(fit, null = "DLM", x, B, conf.level = 0.95){
                          df_m = df_m,
                          df_l = df_l,
                          penalize = TRUE,
-                         method = method,
                          model_type = null)$fit
     }
     
@@ -106,7 +109,6 @@ model_comparison <- function(fit, null = "DLM", x, B, conf.level = 0.95){
                        df_m = df_m,
                        df_l = df_l,
                        penalize = TRUE,
-                       method = method,
                        model_type = model_type,
                        family = family)$fit
     LLR[i] <- as.numeric(logLik(full_model) - logLik(null_model))

@@ -88,7 +88,7 @@ plot_DLF <- function(new_modifiers, mod_fit, mod_name, dlm_fit=NULL, plot_by, ti
 
   if(!is.null(dlm_fit)){ #DLM and DLIM
     model_type <- attr(mod_fit, "model_type")
-    if(model_type=="standard"){
+    if(model_type=="nonlinear"){
       model_name <- paste0("DLIM(", mod_fit$cb$df_m,",",mod_fit$cb$df_l,")")
     }else{
       model_name <- paste0("DLIM-", model_type, "(", mod_fit$cb$df_l,")")
