@@ -24,6 +24,7 @@ RoxygenNote: 7.2.3
 Imports: 
   dlnm,
   ggplot2,
+  lifecycle,
   mgcv,
   reshape2,
   rlang,
