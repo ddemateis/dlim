@@ -17,7 +17,7 @@ Authors@R: c(person(given = "Danielle",
                    role = "aut",
                    comment = c(ORCID = "0000-0003-4774-3883")))
 Description: Collection of functions for fitting and interpreting distributed lag interaction models (DLIM). A DLIM regresses a scalar outcome on repeated measures of exposure and allows for modification by a continuous variable. Includes a dlim() function for fitting, predict() function for inference, and plotting functions for visualization. Details on methodology are described in Demateis et al. (2024) <doi:10.1002/env.2843>.
-License: GPL-3
+License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
