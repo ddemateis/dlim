@@ -2,7 +2,7 @@ Package: dlim
 Type: Package
 Date: 2024-02-25
 Title: Distributed Lag Interaction Model
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: c(person(given = "Danielle",
                     family = "Demateis",
                     role = c("aut", "cre"),

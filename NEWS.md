@@ -1,3 +1,5 @@
+# dlim 0.3.0
+
 # dlim 0.2.0
 
 * Update to `dlim` function, removing the requirement to pass `df_m` for linear modification model
