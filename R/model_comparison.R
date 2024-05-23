@@ -14,12 +14,12 @@
 #' @param x exposure
 #' @param B number of bootstrap samples
 #' @param conf.level The confidence level (class "\code{numeric}")
-#' @return The function returns a decision to either reject or fail to reject the null model
+#' @return The function returns a decision to either reject or fail to reject the null model. The object returned has an attribute "pval" that is the empirical bootstrap p-value
 
 model_comparison <- function(fit, null = "none", x, B, conf.level = 0.95){
   
   if(null == "DLM"){
-    lifecycle::deprecate_warn("0.3.0", "null = 'DLM'", "null = 'none'")
+    lifecycle::deprecate_warn("0.2.1", "null = 'DLM'", "null = 'none'")
     null <- "none"
   }
   
@@ -119,5 +119,9 @@ model_comparison <- function(fit, null = "none", x, B, conf.level = 0.95){
   obs_LLR <- logLik(fit$fit) - logLik(initial_null)
   crit_LLR <- quantile(LLR, conf.level)
   
-  return(ifelse(obs_LLR > crit_LLR, "reject", "FTR"))
+  #decision
+  decision <- ifelse(obs_LLR > crit_LLR, "reject", "FTR")
+  attr(decision, "pval") <- mean(LLR > obs_LLR)
+  
+  return(decision)
 }

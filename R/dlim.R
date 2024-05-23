@@ -37,7 +37,7 @@ dlim <- function(y, x, modifiers, z=NULL, df_m=NULL, df_l,
                  ID=NULL, ...){
 
   if(model_type == "standard"){
-    lifecycle::deprecate_warn("0.3.0", "model_type = 'standard'", "model_type = 'nonlinear'")
+    lifecycle::deprecate_warn("0.2.1", "model_type = 'standard'", "model_type = 'nonlinear'")
     model_type <- "nonlinear"
   }
   

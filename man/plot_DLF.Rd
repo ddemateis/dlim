@@ -10,6 +10,8 @@ plot_DLF(
   mod_name,
   dlm_fit = NULL,
   plot_by,
+  exposure_time = NULL,
+  exp_time_unit = "Time",
   time_pts = NULL,
   mod_trans = NULL,
   link_trans = NULL
@@ -26,7 +28,11 @@ plot_DLF(
 
 \item{plot_by}{choose to create plots for particular modifier values, "modifier", or particular time points, "time", (class "\code{character}")}
 
-\item{time_pts}{a set of time points if plotting by time (class "\code{numeric}")}
+\item{exposure_time}{optional vector of exposure-time points if the first time point does not correspond to exposure-time 1. Must have the same length as the number of exposure-time points (class "\code{numeric}")}
+
+\item{exp_time_unit}{option to provide the unit for the exposure time points, e.g., "month" or "week". Only used with \code{plot_by = "time"} for labeling cross-sections (class "\code{character}")}
+
+\item{time_pts}{a subset of exposure-time points if \code{plot_by = "time"}. Must be a subset of exposure_time points (class "\code{numeric}")}
 
 \item{mod_trans}{if modifiers are transformed, specify back transformation function (class "\code{character}")}
 

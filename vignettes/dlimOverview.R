@@ -58,6 +58,22 @@ plot_DLF(new_modifiers = c(0.25, 0.5, 0.75),
          plot_by = "modifier")
 
 ## -----------------------------------------------------------------------------
+plot_DLF(new_modifiers = seq(0.1,0.9,0.1), 
+         mod_fit = dlim_fit, 
+         mod_name = "modifier", 
+         plot_by = "time", 
+         exposure_time = 10:46,
+         time_pts = c(20, 30, 40))
+
+## -----------------------------------------------------------------------------
+plot_DLF(new_modifiers = c(0.25, 0.5, 0.75),
+         mod_fit = dlim_fit, 
+         mod_name = "modifier", 
+         plot_by = "modifier",
+         exposure_time = 10:46) +
+  xlab("months after parturition")
+
+## -----------------------------------------------------------------------------
 #predict
 dlim_pred <- predict(dlim_fit,
                      newdata = seq(0.1, 0.9, 0.1))

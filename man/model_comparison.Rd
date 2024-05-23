@@ -18,7 +18,7 @@ model_comparison(fit, null = "none", x, B, conf.level = 0.95)
 \item{conf.level}{The confidence level (class "\code{numeric}")}
 }
 \value{
-The function returns a decision to either reject or fail to reject the null model
+The function returns a decision to either reject or fail to reject the null model. The object returned has an attribute "pval" that is the empirical bootstrap p-value
 }
 \description{
 Compare models to test for interaction

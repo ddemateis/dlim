@@ -144,6 +144,29 @@ plot_DLF(new_modifiers = c(0.25, 0.5, 0.75),
          plot_by = "modifier")
 ```
 
+
+
+When plotting by point-wise effect estimates, you also have the option to specify the exposure-time values. If the 37 time points in this example actually correspond to exposure during months 10 to 46 after parturition and you want to look at the exposure-time-response functions at months 20, 30, and 40, pass `exposure_time = 10:46` to specify that the 37 time points in the data correspond to months 10 to 46, and pass `time_pts = c(20,30,40)` to specify plotting cross-sections at months 20, 30 and 40. 
+
+```{r}
+plot_DLF(new_modifiers = seq(0.1,0.9,0.1), 
+         mod_fit = dlim_fit, 
+         mod_name = "modifier", 
+         plot_by = "time", 
+         exposure_time = 10:46,
+         time_pts = c(20, 30, 40))
+```
+When you pass `exposure_time = 10:46` to along with `plot_by = "modifier"`, then `plot_DLF` plots the point-wise effects at cross-sections of the `new_modifiers` modifier values with appropriately labeled exposure times on the x-axis.
+
+```{r}
+plot_DLF(new_modifiers = c(0.25, 0.5, 0.75),
+         mod_fit = dlim_fit, 
+         mod_name = "modifier", 
+         plot_by = "modifier",
+         exposure_time = 10:46) +
+  xlab("months after parturition")
+```
+
 ### Custom plotting examples
 
 You can use the output from the `predict` function to create your own custom plots. To create a custom cumulative effect plot, specify a range of modifier value through `newdata` in the `predict` function, and then extract the cumulative effect estimates (`dlim_pred$est_dlim$betas_cumul`), and the upper (`dlim_pred$est_dlim$cumul_UB`) and lower `dlim_pred$est_dlim$cumul_LB` bounds for the cumulative effects. Combine these along with the modifiers into a data frame and plot using `ggplot` or `plot`.  
@@ -200,7 +223,7 @@ ggplot(dlim_pred_df, aes(x = Week, y = Estimate)) +
 
 ## Model Comparison
 
-We can compare this model to a standard DLM using the `model_comparison` function. The full model is the `dlim_fit` model object, and the null model by default is `"none"`, a DLM with no interaction (standard DLM). Then, specify the exposure used to create `dlim_fit` and the number of bootstrap samples, `B = 5` (we recommend using at least 1000 bootstrap samples, but use 5 to illustrate quickly). The function returns the decision to reject or fail to reject the null model based on the default confidence level `conf.level` of 0.95.
+We can compare this model to a standard DLM using the `model_comparison` function. The full model is the `dlim_fit` model object, and the null model by default is `"none"`, a DLM with no interaction (standard DLM). Then, specify the exposure used to create `dlim_fit` and the number of bootstrap samples, `B = 5` (we recommend using at least 1000 bootstrap samples, but use 5 to illustrate quickly). The function returns the decision to reject or fail to reject the null model based on the default confidence level `conf.level` of 0.95 along with an attribute containing the empirical bootstrap p-value.
 
 ```{r}
 model_comparison(fit = dlim_fit, 
