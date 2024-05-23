@@ -24,7 +24,7 @@
 cross_basis <- function(x,M,L=NULL,argmod=list(),arglag=list(), model_type="nonlinear"){
   
   if(model_type == "standard"){
-    lifecycle::deprecate_warn("0.2.1", "model_type = 'standard'", "model_type = 'nonlinear'")
+    lifecycle::deprecate_warn("0.2.1", I("model_type = 'standard'"), I("model_type = 'nonlinear'"))
     model_type <- "nonlinear"
   }
   

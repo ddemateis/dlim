@@ -19,7 +19,7 @@
 model_comparison <- function(fit, null = "none", x, B, conf.level = 0.95){
   
   if(null == "DLM"){
-    lifecycle::deprecate_warn("0.2.1", "null = 'DLM'", "null = 'none'")
+    lifecycle::deprecate_warn("0.2.1", I("null = 'DLM'"), I("null = 'none'"))
     null <- "none"
   }
   
