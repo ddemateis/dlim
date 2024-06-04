@@ -1,8 +1,8 @@
 ---
 title: "Distributed Lag Interaction Model Overview"
-output: pdf_document
+output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{dlimOverview}
+  %\VignetteIndexEntry{Distributed Lag Interaction Model Overview}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -13,6 +13,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
+
 
 # Preamble
 
