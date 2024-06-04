@@ -34,7 +34,8 @@ Depends:
     R (>= 2.10)
 Suggests: 
     rmarkdown,
-    knitr
+    knitr,
+    tinytex
 VignetteBuilder: knitr
 URL: https://ddemateis.github.io/dlim/, https://github.com/ddemateis/dlim
 BugReports: https://github.com/ddemateis/dlim/issues
