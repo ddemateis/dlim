@@ -3,8 +3,7 @@
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/dlim)](https://CRAN.R-project.org/package=dlim)
-[![R-CMD-check](https://github.com/ddemateis/dlim/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.c
-om/ddemateis/dlim/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/ddemateis/dlim/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ddemateis/dlim/actions/workflows/R-CMD-check.yaml)
 [![Downloads](https://cranlogs.r-pkg.org/badges/dlim)](https://cran.rstudio.com/package=dlim)
 <!-- badges: end -->
   
