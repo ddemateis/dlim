@@ -1,72 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://ddemateis.github.io/dlim/404.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/articles/dlimOverview.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/reference/cross_basis.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/reference/dlim-package.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/reference/dlim.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/reference/ex_data.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/reference/exposure.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/reference/model_comparison.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/reference/plot_DLF.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/reference/plot_cumulative.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/reference/predict.dlim.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/reference/predict.sim_dlim.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/reference/print.dlim.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/reference/sim_data.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/reference/sim_dlf.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/reference/sim_dlim.html</loc>
-  </url>
-  <url>
-    <loc>https://ddemateis.github.io/dlim/reference/summary.dlim.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://ddemateis.github.io/dlim/404.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/LICENSE.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/articles/dlimOverview.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/articles/index.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/authors.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/index.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/news/index.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/reference/cross_basis.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/reference/dlim-package.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/reference/dlim.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/reference/ex_data.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/reference/exposure.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/reference/index.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/reference/model_comparison.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/reference/plot_DLF.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/reference/plot_cumulative.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/reference/predict.dlim.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/reference/predict.sim_dlim.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/reference/print.dlim.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/reference/sim_data.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/reference/sim_dlf.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/reference/sim_dlim.html</loc></url>
+<url><loc>https://ddemateis.github.io/dlim/reference/summary.dlim.html</loc></url>
 </urlset>
+

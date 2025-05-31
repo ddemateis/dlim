@@ -5,64 +5,48 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="dlim">
 <title>Distributed Lag Interaction Model Overview • dlim</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Distributed Lag Interaction Model Overview">
-<meta property="og:description" content="dlim">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Distributed Lag Interaction Model Overview">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">dlim</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.1</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/dlimOverview.html">Distributed Lag Interaction Model Overview</a>
-  </div>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/dlimOverview.html">Distributed Lag Interaction Model Overview</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/ddemateis/dlim/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/ddemateis/dlim/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
 </nav><div class="container template-article">
 
@@ -71,10 +55,11 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="" class="logo" alt=""><h1>Distributed Lag Interaction Model Overview</h1>
+
+      <h1>Distributed Lag Interaction Model Overview</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ddemateis/dlim/blob/HEAD/vignettes/dlimOverview.Rmd" class="external-link"><code>vignettes/dlimOverview.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/ddemateis/dlim/blob/main/vignettes/dlimOverview.Rmd" class="external-link"><code>vignettes/dlimOverview.Rmd</code></a></small>
       <div class="d-none name"><code>dlimOverview.Rmd</code></div>
     </div>
 
@@ -95,7 +80,7 @@ installed by</p>
 <p>Then the package can be loaded by</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ddemateis.github.io/dlim/">dlim</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; This is dlim 0.2.0. For details: help(`dlim-package`) and vignette('dlimOverview').</span></span></code></pre></div>
+<span><span class="co">#&gt; This is dlim 0.2.1. For details: help(`dlim-package`) and vignette('dlimOverview').</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="methodology-and-applications">Methodology and Applications<a class="anchor" aria-label="anchor" href="#methodology-and-applications"></a>
@@ -122,11 +107,11 @@ the degrees of freedom for the modifier basis, <code>df_m</code>, and
 the exposure time basis, <code>df_l</code>. You can optionally specify
 whether to penalize, <code>penalize = T</code> or
 <code>penalize = F</code>, though the function will default to
-<code>penalize = T</code>. We recommend specifying
-<code>method = "REML"</code> if penalizing. If the data set is very
-large, you can set <code>fit_fn = "bam"</code> so <code><a href="../reference/dlim.html">dlim()</a></code>
-uses <code>bam()</code> instead of <code>gam()</code> for model fitting.
-See <code>?bam</code> for more details.</p>
+<code>penalize = T</code>. By default, <code>method = "REML"</code> for
+penalized models. If the data set is very large, you can set
+<code>fit_fn = "bam"</code> so <code><a href="../reference/dlim.html">dlim()</a></code> uses
+<code>bam()</code> instead of <code>gam()</code> for model fitting. See
+<code>?bam</code> for more details.</p>
 </div>
 <div class="section level3">
 <h3 id="the-function-predict">The function <code>predict()</code><a class="anchor" aria-label="anchor" href="#the-function-predict"></a>
@@ -197,18 +182,23 @@ models with and without interaction, or models of varying levels of
 interaction. See <a href="https://doi.org/10.1002/env.2843" class="external-link">Demateis et
 al. 2024</a> for discussion. The <code>model_comparison</code> function
 takes a <code>dlim</code> object (must be fit with REML) through the
-<code>fit</code> argument. The fit object is the full model. Specify the
-null model, either <code>null = "DLM"</code> or
-<code>null = "linear"</code> are currently supported. <code>x</code> is
-the exposure matrix used to fit <code>fit</code>, <code>B</code> is the
-number of bootstrap samples, and <code>conf.level</code> is the
-confidence level with default 0.95. The function returns a decision to
-reject or fail to reject based on the confidence level.</p>
+<code>fit</code> argument. The fit object is the full model. Options for
+the null model are a standard DLM with no interaction
+(<code>null = "none"</code>), a DLIM with linear interaction
+(<code>null = "linear"</code>), or a DLIM with quadratic interaction
+(<code>null = "quadratic"</code>). <code>x</code> is the exposure matrix
+used to fit <code>fit</code>, <code>B</code> is the number of bootstrap
+samples, and <code>conf.level</code> is the confidence level with
+default 0.95. The function returns a decision to reject or fail to
+reject based on the confidence level.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
+<div class="section level3">
+<h3 id="model-fitting">Model Fitting<a class="anchor" aria-label="anchor" href="#model-fitting"></a>
+</h3>
 <p>Using the example data set in the package, fit a DLIM using the
 <code><a href="../reference/dlim.html">dlim()</a></code> function. First load the data set:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -266,10 +256,9 @@ DLIM using the <code>dlim</code> function:</p>
 <span>                 modifier <span class="op">=</span> <span class="va">ex_data</span><span class="op">$</span><span class="va">modifier</span>, </span>
 <span>                 z <span class="op">=</span> <span class="va">ex_data</span><span class="op">$</span><span class="va">z</span>, </span>
 <span>                 df_m <span class="op">=</span> <span class="fl">10</span>, </span>
-<span>                 df_l <span class="op">=</span> <span class="fl">10</span>, </span>
-<span>                 method <span class="op">=</span> <span class="st">"REML"</span><span class="op">)</span></span></code></pre></div>
-<p>Note specifying <code>method = "REML</code> along with penalization.
-We can quickly look at the object by printing it:</p>
+<span>                 df_l <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<p>Note that the default is to use penalization. We can quickly look at
+the object by printing it:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dlim_fit</span></span>
 <span><span class="co">#&gt; Object of class dlim </span></span>
@@ -278,7 +267,7 @@ We can quickly look at the object by printing it:</p>
 <span><span class="co">#&gt; Link function: identity </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; dlim(y = ex_data$y, x = ex_data$exposure, modifiers = ex_data$modifier, </span></span>
-<span><span class="co">#&gt;     z = ex_data$z, df_m = 10, df_l = 10, method = "REML")</span></span>
+<span><span class="co">#&gt;     z = ex_data$z, df_m = 10, df_l = 10)</span></span>
 <span><span class="co">#&gt; Modifier basis degrees of freedom: 10 </span></span>
 <span><span class="co">#&gt; Exposure time basis degrees of freedom: 10 </span></span>
 <span><span class="co">#&gt;  </span></span>
@@ -291,6 +280,10 @@ We can quickly look at the object by printing it:</p>
 link function, there are 10 degrees of freedom for both bases, the
 number of exposure time points is 37, and the model was fit using
 penalization.</p>
+</div>
+<div class="section level3">
+<h3 id="prediction">Prediction<a class="anchor" aria-label="anchor" href="#prediction"></a>
+</h3>
 <p>To see predicted cumulative or point-wise effects, we can use the
 <code><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict()</a></code> function. Specify <code>type="CE"</code> to
 obtain cumulative effect estimates, <code>type="DLF"</code> to obtain
@@ -354,6 +347,13 @@ of 0.5, along with upper and lower confidence intervals:</p>
 <span><span class="co">#&gt; 35 0.007406503 -0.0059269186 0.02073992</span></span>
 <span><span class="co">#&gt; 36 0.008201245 -0.0082854634 0.02468795</span></span>
 <span><span class="co">#&gt; 37 0.010291185 -0.0133044965 0.03388687</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="plotting">Plotting<a class="anchor" aria-label="anchor" href="#plotting"></a>
+</h3>
+<div class="section level4">
+<h4 id="standard-plotting-functions">Standard plotting functions<a class="anchor" aria-label="anchor" href="#standard-plotting-functions"></a>
+</h4>
 <p>We can also create plots for the cumulative effects and point-wise
 effects. The following plots the estimated cumulative effects over a
 grid of modifier values:</p>
@@ -379,37 +379,165 @@ across a grid of modifiers isolated for weeks 10, 20, and 30:</p>
 number of modifier values, specify <code>plot_by = modifier</code> and
 provide select modifier values to <code>new_modifiers</code>. The
 following plots estimated point-wise effects across all time points
-isolated for modifier values 0.25, 0.5, and 0.75:</p>
+isolated for modifier values 0.25, 0.5, and 0.75.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_DLF.html">plot_DLF</a></span><span class="op">(</span>new_modifiers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span>,</span>
 <span>         mod_fit <span class="op">=</span> <span class="va">dlim_fit</span>, </span>
 <span>         mod_name <span class="op">=</span> <span class="st">"modifier"</span>, </span>
 <span>         plot_by <span class="op">=</span> <span class="st">"modifier"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="dlimOverview_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
-<p>We can compare this model to a standard DLM using the
-<code>model_comparison</code> function. The full model is
-<code>dlim_fit</code> model object, and the null model by default is
-<code>"DLM"</code>. Then specify the exposure used to create
-<code>dlim_fit</code> and the number of bootstrap samples,
-<code>B = 5</code> (we recommend using at least 1000 bootstrap samples,
-but use 5 to illustrate quickly). The function returns the decision to
-reject or fail to reject the null model based on the default confidence
-level <code>conf.level</code> of 0.95.</p>
+<p>When plotting by point-wise effect estimates, you also have the
+option to specify the exposure-time values. If the 37 time points in
+this example actually correspond to exposure during months 10 to 46
+after parturition and you want to look at the exposure-time-response
+functions at months 20, 30, and 40, pass
+<code>exposure_time = 10:46</code> to specify that the 37 time points in
+the data correspond to months 10 to 46, and pass
+<code>time_pts = c(20,30,40)</code> to specify plotting cross-sections
+at months 20, 30 and 40.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_DLF.html">plot_DLF</a></span><span class="op">(</span>new_modifiers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.1</span>,<span class="fl">0.9</span>,<span class="fl">0.1</span><span class="op">)</span>, </span>
+<span>         mod_fit <span class="op">=</span> <span class="va">dlim_fit</span>, </span>
+<span>         mod_name <span class="op">=</span> <span class="st">"modifier"</span>, </span>
+<span>         plot_by <span class="op">=</span> <span class="st">"time"</span>, </span>
+<span>         exposure_time <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">46</span>,</span>
+<span>         time_pts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">40</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="dlimOverview_files/figure-html/unnamed-chunk-11-1.png" width="700">
+When you pass <code>exposure_time = 10:46</code> to along with
+<code>plot_by = "modifier"</code>, then <code>plot_DLF</code> plots the
+point-wise effects at cross-sections of the <code>new_modifiers</code>
+modifier values with appropriately labeled exposure times on the
+x-axis.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_DLF.html">plot_DLF</a></span><span class="op">(</span>new_modifiers <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span>,</span>
+<span>         mod_fit <span class="op">=</span> <span class="va">dlim_fit</span>, </span>
+<span>         mod_name <span class="op">=</span> <span class="st">"modifier"</span>, </span>
+<span>         plot_by <span class="op">=</span> <span class="st">"modifier"</span>,</span>
+<span>         exposure_time <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">46</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">xlab</span><span class="op">(</span><span class="st">"months after parturition"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="dlimOverview_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
+</div>
+<div class="section level4">
+<h4 id="custom-plotting-examples">Custom plotting examples<a class="anchor" aria-label="anchor" href="#custom-plotting-examples"></a>
+</h4>
+<p>You can use the output from the <code>predict</code> function to
+create your own custom plots. To create a custom cumulative effect plot,
+specify a range of modifier value through <code>newdata</code> in the
+<code>predict</code> function, and then extract the cumulative effect
+estimates (<code>dlim_pred$est_dlim$betas_cumul</code>), and the upper
+(<code>dlim_pred$est_dlim$cumul_UB</code>) and lower
+<code>dlim_pred$est_dlim$cumul_LB</code> bounds for the cumulative
+effects. Combine these along with the modifiers into a data frame and
+plot using <code>ggplot</code> or <code>plot</code>.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#predict</span></span>
+<span><span class="va">dlim_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">dlim_fit</span>,</span>
+<span>                     newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0.9</span>, <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Returning fitted values is in progress.</span></span>
+<span></span>
+<span><span class="co">#create data frame for plotting</span></span>
+<span><span class="va">dlim_cumul_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Estimate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">dlim_pred</span><span class="op">$</span><span class="va">est_dlim</span><span class="op">$</span><span class="va">betas_cumul</span><span class="op">)</span>,</span>
+<span>                            LB <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">dlim_pred</span><span class="op">$</span><span class="va">est_dlim</span><span class="op">$</span><span class="va">cumul_LB</span><span class="op">)</span>,</span>
+<span>                            UB <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">dlim_pred</span><span class="op">$</span><span class="va">est_dlim</span><span class="op">$</span><span class="va">cumul_UB</span><span class="op">)</span>,</span>
+<span>                            Modifier <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">dlim_pred</span><span class="op">$</span><span class="va">est_dlim</span><span class="op">$</span><span class="va">modifiers</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#plotting</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">dlim_cumul_df</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Modifier</span>, y <span class="op">=</span> <span class="va">Estimate</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_point</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_errorbar</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>ymin<span class="op">=</span><span class="va">LB</span>, ymax<span class="op">=</span><span class="va">UB</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>,  color <span class="op">=</span> <span class="st">"black"</span>, size<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Modifier"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">ylab</span><span class="op">(</span><span class="st">"Change in response per unit of exposure"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Cumulative Effect Esimates"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Please use `linewidth` instead.</span></span>
+<span><span class="co">#&gt; This warning is displayed once every 8 hours.</span></span>
+<span><span class="co">#&gt; Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span>
+<span><span class="co">#&gt; generated.</span></span></code></pre></div>
+<p><img src="dlimOverview_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
+<p>To make a custom plot of the exposure-time-response functions for
+specific modifier values, you can follow a similar approach. Specify the
+modifiers you want to use with <code>newdata</code> in the
+<code>predict</code> function and set <code>type = "DLF"</code> to
+obtain point-wise effect estimates. Then extract the point-wise effect
+estimates (<code>dlim_pred$est_dlim$betas</code>), and the upper
+(<code>dlim_pred$est_dlim$UB</code>) and lower
+(<code>dlim_pred$est_dlim$LB</code>) bounds. Note the use of the
+transpose function to make sure they are vectorized in proper order. The
+dimensions of each of these matrices is the number of modifier values
+specified by the number of exposure-time points.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#predict</span></span>
+<span><span class="va">new_mods</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span></span>
+<span><span class="va">dlim_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">dlim_fit</span>, </span>
+<span>                     newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span>, </span>
+<span>                     type <span class="op">=</span> <span class="st">"DLF"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#create data frame for plotting</span></span>
+<span><span class="va">dlim_pred_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Estimate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">dlim_pred</span><span class="op">$</span><span class="va">est_dlim</span><span class="op">$</span><span class="va">betas</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                           LB <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">dlim_pred</span><span class="op">$</span><span class="va">est_dlim</span><span class="op">$</span><span class="va">LB</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                           UB <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">dlim_pred</span><span class="op">$</span><span class="va">est_dlim</span><span class="op">$</span><span class="va">UB</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                           Week <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">37</span>,<span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">new_mods</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                           Modifier <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="va">new_mods</span>, each <span class="op">=</span> <span class="fl">37</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#plotting</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">dlim_pred_df</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Week</span>, y <span class="op">=</span> <span class="va">Estimate</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_point</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_errorbar</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>ymin<span class="op">=</span><span class="va">LB</span>, ymax<span class="op">=</span><span class="va">UB</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_hline</span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>,  color <span class="op">=</span> <span class="st">"black"</span>, size<span class="op">=</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">facet_grid</span><span class="op">(</span>cols <span class="op">=</span> <span class="fu">vars</span><span class="op">(</span><span class="va">Modifier</span><span class="op">)</span>, labeller <span class="op">=</span> <span class="st">"label_both"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">xlab</span><span class="op">(</span><span class="st">"Exposure week"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu">ylab</span><span class="op">(</span><span class="st">"Change in response per unit of exposure"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="dlimOverview_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="model-comparison">Model Comparison<a class="anchor" aria-label="anchor" href="#model-comparison"></a>
+</h3>
+<p>We can compare this model to a standard DLM using the
+<code>model_comparison</code> function. The full model is the
+<code>dlim_fit</code> model object, and the null model by default is
+<code>"none"</code>, a DLM with no interaction (standard DLM). Then,
+specify the exposure used to create <code>dlim_fit</code> and the number
+of bootstrap samples, <code>B = 5</code> (we recommend using at least
+1000 bootstrap samples, but use 5 to illustrate quickly). The function
+returns the decision to reject or fail to reject the null model based on
+the default confidence level <code>conf.level</code> of 0.95 along with
+an attribute containing the empirical bootstrap p-value.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/model_comparison.html">model_comparison</a></span><span class="op">(</span>fit <span class="op">=</span> <span class="va">dlim_fit</span>, </span>
-<span>                 null <span class="op">=</span> <span class="st">"DLM"</span>,</span>
+<span>                 null <span class="op">=</span> <span class="st">"none"</span>,</span>
 <span>                 x <span class="op">=</span> <span class="va">exposure</span>, </span>
 <span>                 B <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      95% </span></span>
-<span><span class="co">#&gt; "reject"</span></span></code></pre></div>
+<span><span class="co">#&gt; "reject" </span></span>
+<span><span class="co">#&gt; attr(,"pval")</span></span>
+<span><span class="co">#&gt; [1] 0</span></span></code></pre></div>
+<p>There are 6 different types of model comparisons this function
+supports:</p>
+<ol style="list-style-type: decimal">
+<li><p>DLIM with non-linear interaction v. DLIM with quadratic
+interaction (<code>attr(fit, "model_type") == "nonlinear"</code> and
+<code>null = "quadratic"</code>)</p></li>
+<li><p>DLIM with non-linear interaction v. DLIM with linear interaction
+(<code>attr(fit, "model_type") == "nonlinear"</code> and
+<code>null = "linear"</code>)</p></li>
+<li><p>DLIM with non-linear interaction v. standard DLM without
+interaction (<code>attr(fit, "model_type") == "nonlinear"</code> and
+<code>null = "none"</code>)</p></li>
+<li><p>DLIM with quadratic interaction v. DLIM with linear interaction
+(<code>attr(fit, "model_type") == "quadratic"</code> and
+<code>null = "linear"</code>)</p></li>
+<li><p>DLIM with quadratic interaction v. standard DLM without
+interaction (<code>attr(fit, "model_type") == "quadratic"</code> and
+<code>null = "none"</code>)</p></li>
+<li><p>DLIM with linear interaction v. standard DLM without interaction
+(<code>attr(fit, "model_type") == "linear"</code> and
+<code>null = "none"</code>)</p></li>
+</ol>
 </div>
-<div class="section level2">
-<h2 id="changes-to-package">Changes to package<a class="anchor" aria-label="anchor" href="#changes-to-package"></a>
-</h2>
-</div>
-<div class="section level2">
-<h2 id="acknowledgements">Acknowledgements<a class="anchor" aria-label="anchor" href="#acknowledgements"></a>
-</h2>
 </div>
 <div class="section level2">
 <h2 id="bibliography">Bibliography<a class="anchor" aria-label="anchor" href="#bibliography"></a>
@@ -417,9 +545,10 @@ level <code>conf.level</code> of 0.95.</p>
 <p>Demateis, D., Keller, K. P., Rojas-Rueda, D., Kioumourtzoglou, M.-A.,
 &amp; Wilson, A. (2024). Penalized distributed lag interaction model:
 Air pollution, birth weight, and neighborhood vulnerability.
-Environmetrics, e2843. <a href="https://doi.org/10.1002/env.2843" class="external-link">https://doi.org/10.1002/env.2843</a></p>
+Environmetrics, e2843. <a href="https://doi.org/10.1002/env.2843" class="external-link uri">https://doi.org/10.1002/env.2843</a>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; dev</p>
 </div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
 
@@ -430,15 +559,15 @@ Environmetrics, e2843. <a href="https://doi.org/10.1002/env.2843" class="externa
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>
