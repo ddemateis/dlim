@@ -10,7 +10,7 @@ cross_basis(
   L = NULL,
   argmod = list(),
   arglag = list(),
-  model_type = "standard"
+  model_type = "nonlinear"
 )
 }
 \arguments{
@@ -24,7 +24,7 @@ cross_basis(
 
 \item{arglag}{a list: $fun is the spline function for the lag ("ps" or "cr" to penalize), $arg is a list of arguments for the spline function (must be named by argument), $df is the degrees of freedom, $sp is optional smoothing parameter}
 
-\item{model_type}{"linear" for a DLIM with linear interaction, "quadratic" for a DLIM with quadratic interaction, "standard" for a DLIM with splines}
+\item{model_type}{"linear" for a DLIM with linear interaction (linear modifier basis), "quadratic" for a DLIM with quadratic interaction (quadratic modifier basis), "nonlinear" for a DLIM with non-linear interaction (spline modifier basis)}
 }
 \value{
 This function returns a list of 5 or 6 elements:

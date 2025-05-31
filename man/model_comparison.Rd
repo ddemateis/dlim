@@ -4,12 +4,12 @@
 \alias{model_comparison}
 \title{Model Comparison}
 \usage{
-model_comparison(fit, null = "DLM", x, B, conf.level = 0.95)
+model_comparison(fit, null = "none", x, B, conf.level = 0.95)
 }
 \arguments{
 \item{fit}{dlim object (must be fit with REML)}
 
-\item{null}{"DLM", "linear" to specify the null model}
+\item{null}{specify the type of interaction in the null model, "none" for no interaction (standard DLM), "linear" for linear interaction (DLIM-linear), or "quadratic" for quadratic interaction}
 
 \item{x}{exposure}
 
@@ -18,7 +18,7 @@ model_comparison(fit, null = "DLM", x, B, conf.level = 0.95)
 \item{conf.level}{The confidence level (class "\code{numeric}")}
 }
 \value{
-The function returns a decision to either reject or fail to reject the null model
+The function returns a decision to either reject or fail to reject the null model. The object returned has an attribute "pval" that is the empirical bootstrap p-value
 }
 \description{
 Compare models to test for interaction

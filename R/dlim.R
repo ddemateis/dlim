@@ -9,6 +9,7 @@
 #' @importFrom stats model.matrix
 #' @importFrom stats model.frame
 #' @importFrom stats na.pass
+#' @importFrom lifecycle deprecate_warn
 #' @param y vector of response values (class "\code{numeric}")
 #' @param x matrix of exposure history (columns) for individuals (rows) (class "\code{matrix}")
 #' @param modifiers vector of modifying values (class "\code{numeric}")
@@ -20,7 +21,7 @@
 #' @param mod_args a list of additional arguments for the spline function (must be named by argument)
 #' @param lag_args a list of additional arguments for the spline function (must be named by argument)
 #' @param fit_fn specify "gam" to use the \code{gam} function for data sets that are not very large, and specify "bam" to use the \code{bam} function for data sets that are very large. Default will fit using \code{gam}. (class "\code{character}")
-#' @param model_type "linear" for a DLIM with linear interaction, "quadratic" for a DLIM with quadratic interaction, "standard" for a DLIM with splines (class "\code{character}")
+#' @param model_type "linear" for a DLIM with linear interaction (linear modifier basis), "quadratic" for a DLIM with quadratic interaction (quadratic modifier basis), "nonlinear" for a DLIM with non-linear interaction (spline modifier basis)
 #' @param ID group identifier for random intercept, only supported for penalized models 
 #' @param ... Other arguments to pass to model fitting function
 #' @example inst/examples/ex_dlim.R
@@ -30,9 +31,17 @@
 #' \item{modifiers}{modifying values (class "\code{numeric}")}
 #' \item{call}{model call}
 
-dlim <- function(y, x, modifiers, z=NULL, df_m=NULL, df_l, penalize=TRUE, pen_fn = "ps", mod_args=NULL, lag_args=NULL, fit_fn="gam", model_type="standard", ID=NULL, ...){
+dlim <- function(y, x, modifiers, z=NULL, df_m=NULL, df_l, 
+                 penalize=TRUE, pen_fn = "ps", mod_args=NULL, 
+                 lag_args=NULL, fit_fn="gam", model_type="nonlinear", 
+                 ID=NULL, ...){
 
-  if(model_type == "standard" & is.null(df_m)){
+  if(model_type == "standard"){
+    lifecycle::deprecate_warn("0.2.1", I("model_type = 'standard'"), I("model_type = 'nonlinear'"))
+    model_type <- "nonlinear"
+  }
+  
+  if(model_type == "nonlinear" & is.null(df_m)){
     stop("Please specify df_m argument, the number of basis functions for the modifier basis.")
   }
   
@@ -57,9 +66,9 @@ dlim <- function(y, x, modifiers, z=NULL, df_m=NULL, df_l, penalize=TRUE, pen_fn
   if(penalize){
     if(!is.null(ID)){
       ID <- as.factor(ID) #make sure ID is a factor
-      model <- do.call(fit_fn,list(formula=y~0+CB+Z+s(ID, bs="re"), paraPen = list(CB = cb$Slist), ...))
+      model <- do.call(fit_fn,list(formula=y~0+CB+Z+s(ID, bs="re"), paraPen = list(CB = cb$Slist), method = "REML", ...))
     }else{
-      model <- do.call(fit_fn,list(formula=y~0+CB+Z, paraPen = list(CB = cb$Slist), ...))
+      model <- do.call(fit_fn,list(formula=y~0+CB+Z, paraPen = list(CB = cb$Slist), method = "REML", ...))
     }
   }else{
     #add stop error if ID is provided for un-penalized model

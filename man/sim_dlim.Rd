@@ -13,7 +13,7 @@ sim_dlim(
   mod_args = NULL,
   lag_args = NULL,
   fit_dlm = FALSE,
-  model_type = "standard",
+  model_type = "nonlinear",
   ...
 )
 }
@@ -34,7 +34,7 @@ sim_dlim(
 
 \item{fit_dlm}{True to additionally fit dlm for comparison}
 
-\item{model_type}{"linear" for a DLIM with linear interaction, "quadratic" for a DLIM with quadratic interaction, "standard" for a DLIM with splines}
+\item{model_type}{"linear" for a DLIM with linear interaction (linear modifier basis), "quadratic" for a DLIM with quadratic interaction (quadratic modifier basis), "nonlinear" for a DLIM with non-linear interaction (spline modifier basis)}
 
 \item{...}{arguments to pass to model fitting function}
 }

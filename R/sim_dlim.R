@@ -14,7 +14,7 @@
 #' @param mod_args a list of additional arguments for the spline function (must be named by argument)
 #' @param lag_args a list of additional arguments for the spline function (must be named by argument)
 #' @param fit_dlm True to additionally fit dlm for comparison
-#' @param model_type "linear" for a DLIM with linear interaction, "quadratic" for a DLIM with quadratic interaction, "standard" for a DLIM with splines
+#' @param model_type "linear" for a DLIM with linear interaction (linear modifier basis), "quadratic" for a DLIM with quadratic interaction (quadratic modifier basis), "nonlinear" for a DLIM with non-linear interaction (spline modifier basis)
 #' @param ... arguments to pass to model fitting function
 #' @return This function returns an object of class "\code{sim_dlim}"
 #' \item{cb}{DLIM cross-basis (class "\code{cross-basis}")}
@@ -25,8 +25,13 @@
 #' \item{modifiers}{\code{modifiers} from \code{numeric}}
 #' \item{data}{\code{data} (class "\code{list}")}
 
-sim_dlim <- function(data, df_m, df_l, penalize=TRUE, pen_fn = "ps", mod_args=NULL, lag_args=NULL, fit_dlm=FALSE, model_type="standard",...){
-
+sim_dlim <- function(data, df_m, df_l, penalize=TRUE, pen_fn = "ps", mod_args=NULL, lag_args=NULL, fit_dlm=FALSE, model_type="nonlinear",...){
+  
+  if(model_type == "standard"){
+    lifecycle::deprecate_warn("0.3.0", "model_type = 'standard'", "model_type = 'nonlinear'")
+    model_type <- "nonlinear"
+  }
+  
   #fit DLIM
   model <- dlim(y = data$y,
                 x = data$x,
