@@ -18,6 +18,7 @@ dlim(
   fit_fn = "gam",
   model_type = "nonlinear",
   ID = NULL,
+  modmain = TRUE,
   ...
 )
 }
@@ -47,6 +48,9 @@ dlim(
 \item{model_type}{"linear" for a DLIM with linear interaction (linear modifier basis), "quadratic" for a DLIM with quadratic interaction (quadratic modifier basis), "nonlinear" for a DLIM with non-linear interaction (spline modifier basis)}
 
 \item{ID}{group identifier for random intercept, only supported for penalized models}
+
+\item{modmain}{TRUE to include the linear main effect of modifier in covariate model (default). FALSE to not include the main effect of modifier. It is recommended to only use the FALSE option when manually specifying an alternative parameterization of
+the main effect of the modifier in the covariate matrix \code{z}.}
 
 \item{...}{Other arguments to pass to model fitting function}
 }

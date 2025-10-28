@@ -22,7 +22,9 @@
 #' @param lag_args a list of additional arguments for the spline function (must be named by argument)
 #' @param fit_fn specify "gam" to use the \code{gam} function for data sets that are not very large, and specify "bam" to use the \code{bam} function for data sets that are very large. Default will fit using \code{gam}. (class "\code{character}")
 #' @param model_type "linear" for a DLIM with linear interaction (linear modifier basis), "quadratic" for a DLIM with quadratic interaction (quadratic modifier basis), "nonlinear" for a DLIM with non-linear interaction (spline modifier basis)
-#' @param ID group identifier for random intercept, only supported for penalized models 
+#' @param ID group identifier for random intercept, only supported for penalized models
+#' @param modmain TRUE to include the linear main effect of modifier in covariate model (default). FALSE to not include the main effect of modifier. It is recommended to only use the FALSE option when manually specifying an alternative parameterization of
+#' the main effect of the modifier in the covariate matrix \code{z}.
 #' @param ... Other arguments to pass to model fitting function
 #' @example inst/examples/ex_dlim.R
 #' @return This function returns a list that is an object of class "\code{dlim}" with the following components
@@ -31,56 +33,116 @@
 #' \item{modifiers}{modifying values (class "\code{numeric}")}
 #' \item{call}{model call}
 
-dlim <- function(y, x, modifiers, z=NULL, df_m=NULL, df_l, 
-                 penalize=TRUE, pen_fn = "ps", mod_args=NULL, 
-                 lag_args=NULL, fit_fn="gam", model_type="nonlinear", 
-                 ID=NULL, ...){
-
-  if(model_type == "standard"){
-    lifecycle::deprecate_warn("0.2.1", I("model_type = 'standard'"), I("model_type = 'nonlinear'"))
+dlim <- function(
+  y,
+  x,
+  modifiers,
+  z = NULL,
+  df_m = NULL,
+  df_l,
+  penalize = TRUE,
+  pen_fn = "ps",
+  mod_args = NULL,
+  lag_args = NULL,
+  fit_fn = "gam",
+  model_type = "nonlinear",
+  ID = NULL,
+  modmain = TRUE,
+  ...
+) {
+  if (model_type == "standard") {
+    lifecycle::deprecate_warn(
+      "0.2.1",
+      I("model_type = 'standard'"),
+      I("model_type = 'nonlinear'")
+    )
     model_type <- "nonlinear"
   }
-  
-  if(model_type == "nonlinear" & is.null(df_m)){
-    stop("Please specify df_m argument, the number of basis functions for the modifier basis.")
+
+  if (model_type == "nonlinear" & is.null(df_m)) {
+    stop(
+      "Please specify df_m argument, the number of basis functions for the modifier basis."
+    )
   }
-  
+
   #set up design matrix for covariates and/or modifiers
-  modifiers <- matrix(modifiers, ncol=1)
-  if(!is.null(z)){
-    design1 <- data.frame(intercept=rep(1,length(modifiers)), modifiers,z)
-  }else{
-    design1 <- data.frame(intercept= rep(1,length(modifiers)),modifiers)
+  modifiers <- matrix(modifiers, ncol = 1)
+  if (modmain) {
+    #include main effect of modifier
+    if (!is.null(z)) {
+      design1 <- data.frame(intercept = rep(1, length(modifiers)), modifiers, z)
+    } else {
+      design1 <- data.frame(intercept = rep(1, length(modifiers)), modifiers)
+    }
+  } else {
+    #do not include main effect of modifier
+    if (!is.null(z)) {
+      design1 <- data.frame(intercept = rep(1, length(modifiers)), z)
+    } else {
+      design1 <- data.frame(intercept = rep(1, length(modifiers)))
+    }
   }
 
   #cross-basis
-  if(penalize){
-    cb <- cross_basis(x=x,M=modifiers,argmod=list(fun=pen_fn,df=df_m,arg=mod_args),arglag=list(fun=pen_fn,df=df_l,arg=lag_args), model_type = model_type)
-  }else{
-    cb <- cross_basis(x=x,M=modifiers,argmod=list(fun="ns",df=df_m,arg=mod_args),arglag=list(fun="ns",df=df_l,arg=lag_args), model_type = model_type)
+  if (penalize) {
+    cb <- cross_basis(
+      x = x,
+      M = modifiers,
+      argmod = list(fun = pen_fn, df = df_m, arg = mod_args),
+      arglag = list(fun = pen_fn, df = df_l, arg = lag_args),
+      model_type = model_type
+    )
+  } else {
+    cb <- cross_basis(
+      x = x,
+      M = modifiers,
+      argmod = list(fun = "ns", df = df_m, arg = mod_args),
+      arglag = list(fun = "ns", df = df_l, arg = lag_args),
+      model_type = model_type
+    )
   }
 
   #fit model
   CB <- cb$cb
-  Z <- model.matrix(~ 0+.,model.frame(~ ., design1, na.action=na.pass)) #handles factor covariates and missing values
-  if(penalize){
-    if(!is.null(ID)){
+  Z <- model.matrix(~ 0 + ., model.frame(~., design1, na.action = na.pass)) #handles factor covariates and missing values
+  if (penalize) {
+    if (!is.null(ID)) {
       ID <- as.factor(ID) #make sure ID is a factor
-      model <- do.call(fit_fn,list(formula=y~0+CB+Z+s(ID, bs="re"), paraPen = list(CB = cb$Slist), method = "REML", ...))
-    }else{
-      model <- do.call(fit_fn,list(formula=y~0+CB+Z, paraPen = list(CB = cb$Slist), method = "REML", ...))
+      model <- do.call(
+        fit_fn,
+        list(
+          formula = y ~ 0 + CB + Z + s(ID, bs = "re"),
+          paraPen = list(CB = cb$Slist),
+          method = "REML",
+          ...
+        )
+      )
+    } else {
+      model <- do.call(
+        fit_fn,
+        list(
+          formula = y ~ 0 + CB + Z,
+          paraPen = list(CB = cb$Slist),
+          method = "REML",
+          ...
+        )
+      )
     }
-  }else{
+  } else {
     #add stop error if ID is provided for un-penalized model
-    model <- do.call(fit_fn,list(formula=y~0+CB+Z, ...))
+    model <- do.call(fit_fn, list(formula = y ~ 0 + CB + Z, ...))
   }
 
-  results <- list("cb" = cb, "fit" = model, "modifiers" = modifiers, call = match.call())
+  results <- list(
+    "cb" = cb,
+    "fit" = model,
+    "modifiers" = modifiers,
+    call = match.call()
+  )
 
   class(results) <- "dlim"
 
   attr(results, "model_type") <- model_type
 
   return(results)
-
 }
